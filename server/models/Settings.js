@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const user = new mongoose.Schema({
+const settings = new mongoose.Schema({
 	userID: {
 		type: String,
 		required: true,
@@ -16,3 +16,6 @@ const user = new mongoose.Schema({
 		default: 'false',
 	},
 });
+const Settings=mongoose.model('setting',settings)
+
+module.exports=Settings

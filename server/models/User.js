@@ -11,3 +11,5 @@ const user = new mongoose.Schema({
 	},
 	invitedBy: String,
 });
+
+const User=mongoose.model('user',user)

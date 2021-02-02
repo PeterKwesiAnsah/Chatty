@@ -16,6 +16,7 @@ const typeDefs = gql`
 		email: String!
 		friends: [User]
 		createdByInvite: Boolean!
+		role:Role!
 	}
 
 	type Message {

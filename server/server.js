@@ -1,5 +1,10 @@
 const typeDefs=require('./typeDefs.js')
+const connect =require('./models/connect.js')
 const {ApolloServer}=require('apollo-server')
+
+
+//connect to database
+connect()
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.

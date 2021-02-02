@@ -2,21 +2,18 @@ const { gql } = require('apollo-server');
 
 //creatng type Definations
 const typeDefs = gql`
+
 	enum Theme {
 		DARK
 		LIGHT
 	}
-	enum Role{
-		MEMBER
-		INVITEE
-	}
+
 
 	type User {
 		id: ID!
 		email: String!
-		friends: [User]
-		createdByInvite: Boolean!
-		role:Role!
+		friends: [User]!
+		invitedBy:String
 	}
 
 	type Message {

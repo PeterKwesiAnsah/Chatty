@@ -15,10 +15,10 @@ const createToken = ({ id }) => jwt.sign({ id }, secret);
  * a null user
  * @param {String} token jwt from client
  */
-const getUserFromToken = (token) => {
+const getUserFromToken = (token, userModel) => {
 	try {
 		const user = jwt.verify(token, secret);
-		return models.User.findOne({ id: user.id });
+		return userModel.findById(user.id);
 	} catch (e) {
 		return null;
 	}

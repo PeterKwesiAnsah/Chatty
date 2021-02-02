@@ -6,6 +6,10 @@ const typeDefs = gql`
 		DARK
 		LIGHT
 	}
+	enum Role{
+		MEMBER
+		INVITEE
+	}
 
 	type User {
 		id: ID!

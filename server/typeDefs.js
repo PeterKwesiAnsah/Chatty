@@ -34,10 +34,10 @@ const typeDefs = gql`
 		email: String!
 		from: User!
 	}
-	
-	input signinInput{
-		email:String!
-		password:String!
+
+	input signinInput {
+		email: String!
+		password: String!
 	}
 
 	type Settings {
@@ -46,4 +46,10 @@ const typeDefs = gql`
 		theme: Theme!
 		pushNotifications: Boolean!
 	}
+
+	type Query {
+		me: User!
+	}
 `;
+
+module.exports=typeDefs

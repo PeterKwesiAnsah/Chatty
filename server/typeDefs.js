@@ -1,4 +1,4 @@
-const { gql } = require('graphql');
+const { gql } = require('apollo-server');
 
 //creatng type Definations
 const typeDefs = gql`
@@ -11,7 +11,7 @@ const typeDefs = gql`
 		id: ID!
 		email: String!
 		friends: [User]
-		createdByInvite: boolean!
+		createdByInvite: Boolean!
 	}
 
 	type Message {
@@ -32,7 +32,6 @@ const typeDefs = gql`
 
 	input InviteInput {
 		email: String!
-		from: User!
 	}
 
 	input signinInput {

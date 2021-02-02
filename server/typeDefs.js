@@ -50,7 +50,27 @@ const typeDefs = gql`
 
 	type Query {
 		me: User!
+		messages:[Message]!
 	}
+
+	type AuthUser{
+		token:String!
+		user:User!
+
+	}
+
+	type Mutation{
+		signUp(input:signinInput):AuthUser!
+	}
+
+	input signUpInput{
+		email:String!
+		password:String!
+		invitedBy:String
+	}
+
+	
+
 `;
 
 module.exports=typeDefs

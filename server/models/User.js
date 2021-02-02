@@ -9,7 +9,10 @@ const user = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	invitedBy: String,
+	invitedBy:{
+        type:String,
+        default:'NoInvite'
+    },
 });
 
 const User=mongoose.model('user',user)

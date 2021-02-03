@@ -47,4 +47,15 @@ module.exports = {
 			throw new Error('Email or Password is Incorrect');
 		},
 	},
+
+	User: {
+		friends: async ({ id, invitedBy }, __, { models }) => {
+			const friends = await models.User.find({ invitedBy: id });
+			if (invitedBy !== 'NoInvite') {
+				const friend = await models.User.findById(invitedBy);
+				return [...friends, friend];
+			}
+			return [...friends];
+		},
+	},
 };

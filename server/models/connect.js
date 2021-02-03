@@ -12,12 +12,11 @@ const connect = async () => {
 			}
 		);
 
-        console.log('Database connected successfully');
-        return connection
+		console.log('Database connected successfully');
+		return connection;
 	} catch (e) {
 		console.log(e);
 	}
 };
 
-
-module.exports=connect
+module.exports = connect;

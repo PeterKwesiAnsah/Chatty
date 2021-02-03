@@ -12,7 +12,7 @@ const typeDefs = gql`
 	type User {
 		id: ID!
 		email: String!
-		friends: [User]!
+		friends: [User]
 		invitedBy:String
 	}
 
@@ -60,7 +60,7 @@ const typeDefs = gql`
 	}
 
 	type Mutation{
-		signUp(input:signinInput):AuthUser!
+		signUp(input:signUpInput):AuthUser!
 		signIn(input:signinInput):AuthUser!
 	}
 

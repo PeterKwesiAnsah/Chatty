@@ -26,7 +26,8 @@ module.exports = {
 			};
 		},
 
-		signIn: async (_, { input }, { createToken, models }) => {
+		signIn: async (_, { input }, { user: loginUser, createToken, models }) => {
+			console.log(loginUser);
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
 			if (user) {
@@ -46,20 +47,33 @@ module.exports = {
 
 			throw new Error('Email or Password is Incorrect');
 		},
-		createMessage:(_, { input }, { models }) => {
-            const { userID, receiverID, content } = input;
-            
- ///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
+		createMessage: (_, { input }, { models }) => {
+			const { userID, receiverID, content } = input;
+
+			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
 
 			//save a message
-			 models.Message.create({
+			models.Message.create({
 				messageID: userID + '.' + receiverID,
 				content,
 			});
 			return {
-				id: userID + '.' + receiverID,
+				messageID: userID + '.' + receiverID,
 				content,
 			};
+		},
+	},
+
+	Query: {
+		messages: async (_, { receiverID }, { user, models }) => {
+            console.log(user)
+			const messages = await models.Message.find({
+				$or: [
+					{ messageID: user._id + '.' + receiverID },
+					{ messageID: receiverID + '.' + user._id },
+				],
+			});
+			return messages;
 		},
 	},
 

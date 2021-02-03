@@ -17,7 +17,7 @@ const typeDefs = gql`
 	}
 
 	type Message {
-		id: String!
+		messageID: String!
 		content: String!
 	}
 
@@ -47,7 +47,7 @@ const typeDefs = gql`
 
 	type Query {
 		me: User!
-		messages(messageID:String):[Message]
+		messages(receiverID:String):[Message]
 	}
 
 	type AuthUser{
@@ -56,15 +56,15 @@ const typeDefs = gql`
 
 	}
 	input MessageInput{
-		userID:String
-		receiverID:String
-		content:String
+		userID:String!
+		receiverID:String!
+		content:String!
 	}
 
 	type Mutation{
 		signUp(input:signUpInput):AuthUser!
 		signIn(input:signinInput):AuthUser!
-		createMessage(input:MessageInput):Message!
+		createMessage(input:MessageInput!):Message!
 	}
 
 

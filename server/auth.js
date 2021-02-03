@@ -15,10 +15,11 @@ const createToken = ({ id }) => jwt.sign({ id }, secret);
  * a null user
  * @param {String} token jwt from client
  */
-const getUserFromToken = (token, userModel) => {
+const getUserFromToken = async (token, userModel) => {
 	try {
-		const user = jwt.verify(token, secret);
-		return userModel.findById(user.id);
+		let user = jwt.verify(token, secret);
+		user= await userModel.findById(user.id);
+		return user
 	} catch (e) {
 		return null;
 	}

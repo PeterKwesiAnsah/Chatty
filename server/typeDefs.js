@@ -27,10 +27,7 @@ const typeDefs = gql`
 		createdAt: String!
 	}
 
-	input MessageInput {
-		id: String!
-		content: String!
-	}
+
 
 	input InviteInput {
 		email: String!
@@ -50,7 +47,7 @@ const typeDefs = gql`
 
 	type Query {
 		me: User!
-		messages:[Message]!
+		messages(messageID:String):[Message]
 	}
 
 	type AuthUser{
@@ -58,10 +55,16 @@ const typeDefs = gql`
 		user:User!
 
 	}
+	input MessageInput{
+		userID:String
+		receiverID:String
+		content:String
+	}
 
 	type Mutation{
 		signUp(input:signUpInput):AuthUser!
 		signIn(input:signinInput):AuthUser!
+		createMessage(input:MessageInput):Message!
 	}
 
 

@@ -46,6 +46,21 @@ module.exports = {
 
 			throw new Error('Email or Password is Incorrect');
 		},
+		createMessage:(_, { input }, { models }) => {
+            const { userID, receiverID, content } = input;
+            
+ ///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
+
+			//save a message
+			 models.Message.create({
+				messageID: userID + '.' + receiverID,
+				content,
+			});
+			return {
+				id: userID + '.' + receiverID,
+				content,
+			};
+		},
 	},
 
 	User: {

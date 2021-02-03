@@ -3,14 +3,10 @@ const saltRounds = 10;
 
 module.exports = {
 	Mutation: {
-		signUp: async (
-			_,
-			{ input },
-			{ createToken, models }
-		) => {
-            const {email,password,invitedBy}=input
+		signUp: async (_, { input }, { createToken, models }) => {
+			const { email, password, invitedBy } = input;
 			//generating hash password
-            const salt = await bcrypt.genSalt(saltRounds);    
+			const salt = await bcrypt.genSalt(saltRounds);
 			const hash = await bcrypt.hash(password, salt);
 			//creating a user
 			const user = await models.User.create({
@@ -20,14 +16,35 @@ module.exports = {
 			});
 
 			//creating a token for the User
+			//use User.id to generate a token
+			//return the user and token
 			const token = createToken(user);
 
-			return {    
+			return {
 				token,
 				user,
 			};
 		},
-		//use User.id to generate a token
-		//return the user and token
+
+		signIn: async (_, { input }, { createToken, models }) => {
+			const { email, password } = input;
+			const user = await models.User.findOne({ email });
+			if (user) {
+				//check to see if password and hashed password exist
+				const match = await bcrypt.compare(password, user.password);
+				if (match) {
+					//create token
+					const token = createToken(user);
+					return {
+						token,
+						user,
+					};
+				}
+
+				throw new Error('Try Again,Password is Incorrect');
+			}
+
+			throw new Error('Email or Password is Incorrect');
+		},
 	},
 };

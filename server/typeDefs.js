@@ -61,7 +61,9 @@ const typeDefs = gql`
 
 	type Mutation{
 		signUp(input:signinInput):AuthUser!
+		signIn(input:signinInput):AuthUser!
 	}
+
 
 	input signUpInput{
 		email:String!

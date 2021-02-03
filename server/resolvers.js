@@ -1,5 +1,10 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const { PubSub } = require('apollo-server');
+
+const pubsub = new PubSub();
+
+const NEW_MESSAGE = 'NEW_MESSAGE';
 
 module.exports = {
 	Mutation: {
@@ -47,26 +52,30 @@ module.exports = {
 
 			throw new Error('Email or Password is Incorrect');
 		},
-		createMessage: (_, { input }, { models }) => {
-			const { userID, receiverID, content } = input;
+		createMessage: (_, { input }, { user, models }) => {
+            console.log(user)
+			const { receiverID, content } = input;
 
 			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
 
-			//save a message
-			models.Message.create({
-				messageID: userID + '.' + receiverID,
-				content,
-			});
-			return {
-				messageID: userID + '.' + receiverID,
+			const message = {
+				messageID: user._id + '.' + receiverID,
 				content,
 			};
+
+			pubsub.publish(NEW_MESSAGE, { newMessage: message });
+
+			//save a message
+			models.Message.create({
+				messageID: user._id + '.' + receiverID,
+				content,
+			});
+			return message;
 		},
 	},
 
 	Query: {
 		messages: async (_, { receiverID }, { user, models }) => {
-            console.log(user)
 			const messages = await models.Message.find({
 				$or: [
 					{ messageID: user._id + '.' + receiverID },
@@ -85,6 +94,12 @@ module.exports = {
 				return [...friends, friend];
 			}
 			return [...friends];
+		},
+	},
+
+	Subscription: {
+		newMessage: {
+			subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
 		},
 	},
 };

@@ -2,18 +2,16 @@ const { gql } = require('apollo-server');
 
 //creatng type Definations
 const typeDefs = gql`
-
 	enum Theme {
 		DARK
 		LIGHT
 	}
 
-
 	type User {
 		id: ID!
 		email: String!
 		friends: [User]
-		invitedBy:String
+		invitedBy: String
 	}
 
 	type Message {
@@ -26,8 +24,6 @@ const typeDefs = gql`
 		from: User!
 		createdAt: String!
 	}
-
-
 
 	input InviteInput {
 		email: String!
@@ -47,35 +43,34 @@ const typeDefs = gql`
 
 	type Query {
 		me: User!
-		messages(receiverID:String):[Message]
+		messages(receiverID: String): [Message]
 	}
 
-	type AuthUser{
-		token:String!
-		user:User!
-
+	type AuthUser {
+		token: String!
+		user: User!
 	}
-	input MessageInput{
-		userID:String!
-		receiverID:String!
-		content:String!
+	input MessageInput {
+		receiverID: String!
+		content: String!
 	}
 
-	type Mutation{
-		signUp(input:signUpInput):AuthUser!
-		signIn(input:signinInput):AuthUser!
-		createMessage(input:MessageInput!):Message!
+	type Mutation {
+		signUp(input: signUpInput): AuthUser!
+		signIn(input: signinInput): AuthUser!
+		createMessage(input: MessageInput!): Message!
 	}
 
-
-	input signUpInput{
-		email:String!
-		password:String!
-		invitedBy:String
+	input signUpInput {
+		email: String!
+		password: String!
+		invitedBy: String
 	}
 
-	
-
+	type Subscription {
+		newMessage: Message!
+		newSignUp: AuthUser!
+	}
 `;
 
-module.exports=typeDefs
+module.exports = typeDefs;

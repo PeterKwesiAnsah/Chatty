@@ -13,10 +13,14 @@ connect();
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
-	context: async ({ req }) => {
-    const token = req.headers.authorization;
-   
-    const user = await getUserFromToken(token,models.User);
+	context: async ({ req, connection }) => {
+		// if (!req) {
+		// 	console.log(connection.context);
+		// 	return { ...connection.context };
+		// }
+		const token = req?.headers.authorization || connection.context.authorization;
+
+		const user = await getUserFromToken(token, models.User);
 
 		return { user, createToken, getUserFromToken, models };
 	},

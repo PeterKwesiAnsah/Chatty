@@ -5,11 +5,13 @@ const { PubSub } = require('apollo-server');
 const pubsub = new PubSub();
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
+const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';
 
 module.exports = {
 	Mutation: {
 		signUp: async (_, { input }, { createToken, models }) => {
 			const { email, password, invitedBy } = input;
+
 			//generating hash password
 			const salt = await bcrypt.genSalt(saltRounds);
 			const hash = await bcrypt.hash(password, salt);
@@ -24,6 +26,10 @@ module.exports = {
 			//use User.id to generate a token
 			//return the user and token
 			const token = createToken(user);
+
+			if (!invitedBy) {
+				pubsub.publish(NEW_SIGNUP, { newSignUp: { token, user } });
+			}
 
 			return {
 				token,
@@ -53,7 +59,6 @@ module.exports = {
 			throw new Error('Email or Password is Incorrect');
 		},
 		createMessage: (_, { input }, { user, models }) => {
-            console.log(user)
 			const { receiverID, content } = input;
 
 			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
@@ -100,6 +105,9 @@ module.exports = {
 	Subscription: {
 		newMessage: {
 			subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
+		},
+		newSignUp: {
+			subscribe: () => pubsub.asyncIterator([NEW_SIGNUP]),
 		},
 	},
 };

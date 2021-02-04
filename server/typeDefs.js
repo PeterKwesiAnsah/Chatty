@@ -44,6 +44,7 @@ const typeDefs = gql`
 	type Query {
 		me: User!
 		messages(receiverID: String): [Message]
+		settings:Settings!
 	}
 
 	type AuthUser {
@@ -55,10 +56,16 @@ const typeDefs = gql`
 		content: String!
 	}
 
+	input SettingsInput{
+		theme:String
+		pushNotifications:String
+	}
+
 	type Mutation {
 		signUp(input: signUpInput): AuthUser!
 		signIn(input: signinInput): AuthUser!
 		createMessage(input: MessageInput!): Message!
+		updateSettngs(input:SettingsInput):Settings!
 	}
 
 	input signUpInput {

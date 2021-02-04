@@ -22,6 +22,9 @@ module.exports = {
 				invitedBy,
 			});
 
+			//save the default settngs of the user upon signup
+			models.Settings.create({ userID: user.id });
+
 			//creating a token for the User
 			//use User.id to generate a token
 			//return the user and token
@@ -38,7 +41,6 @@ module.exports = {
 		},
 
 		signIn: async (_, { input }, { user: loginUser, createToken, models }) => {
-			console.log(loginUser);
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
 			if (user) {
@@ -77,6 +79,16 @@ module.exports = {
 			});
 			return message;
 		},
+		updateSettings: async (_, { input }, { user, models }) => {
+			//find settings document with such userID and update with inputArgs
+			return await models.Settings.findOneAndUpdate(
+				{ userID: user.id },
+				input,
+				{
+					new: true,
+				}
+			);
+		},
 	},
 
 	Query: {
@@ -89,6 +101,9 @@ module.exports = {
 			});
 			return messages;
 		},
+		settings: async (_, __, { user, models }) => {
+			return await models.Settings.findOne({ userID: user.id });
+		},
 	},
 
 	User: {
@@ -100,6 +115,9 @@ module.exports = {
 			}
 			return [...friends];
 		},
+	},
+	Settings: {
+		user: (_, __, { user }) => user,
 	},
 
 	Subscription: {

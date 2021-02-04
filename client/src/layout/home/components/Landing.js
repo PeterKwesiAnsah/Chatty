@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import { makeStyles, Typography } from '@material-ui/core';
-import animationData from '../../../lotties/growthAnimation.json';
+import animationData from '../../../lotties/chattingAnimation.json';
 
 const useStyles = makeStyles((theme) => ({
 	root: {},

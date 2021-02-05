@@ -26,7 +26,11 @@ const useStyles = makeStyles((theme) =>
 			},
 			a: {
 				textDecoration: 'none',
-			},
+            },
+            li:{
+                listStyle:'none'
+            },
+
 			'#root': {
 				height: '100%',
 				width: '100%',

@@ -48,14 +48,14 @@ const Navbar = () => {
 				<img
 					src={logo}
 					alt="Just Send An Invite"
-					className={classes.img}
+					className={classes.img}   
 				></img>
 			</div>
 			<Router>
 				<nav>
 					<ul>
 						<li>
-							<Link to="/signUp">SignUp</Link>
+							<Link to="/signUp"><Typography variant="h6" style={{fontSize:'1.05rem'}}>SignUp</Typography></Link>
 						</li>
 						<li>
 							<Button href="/login" variant="outlined" className={classes.btn}>

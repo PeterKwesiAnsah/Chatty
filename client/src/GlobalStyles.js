@@ -15,21 +15,21 @@ const useStyles = makeStyles((theme) =>
 				width: '100%',
 			},
 			body: {
-				backgroundColor: `${(theme.palette.common.type === 'dark'
-					? '#212121'
-					: '#ffffff')}`,
+				backgroundColor: `${
+					theme.palette.common.type === 'dark' ? '#212121' : '#ffffff'
+				}`,
 				height: '100%',
 				width: '100%',
-				color: `${(theme.palette.common.type ==='dark'
-					? '#ffffff'
-					: '#000000')}`,
+				color: `${
+					theme.palette.common.type === 'dark' ? '#ffffff' : '#000000'
+				}`,
 			},
 			a: {
 				textDecoration: 'none',
-            },
-            li:{
-                listStyle:'none'
-            },
+			},
+			li: {
+				listStyle: 'none',
+			},
 
 			'#root': {
 				height: '100%',

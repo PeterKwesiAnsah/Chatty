@@ -10,33 +10,34 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: '#303030',
 		display: 'grid',
 		placeItems: 'center',
-		padding: theme.spacing(8),
+		padding: theme.spacing(8, 10),
+		textAlign: 'center',
 	},
 	blobAll: {
 		position: 'relative',
-		textAlign: 'center',
-		width: theme.spacing(35),
-		height: theme.spacing(35),
+
+		width: theme.spacing(37),
+		height: theme.spacing(37),
 	},
 	numberOne: {
-		marginTop:theme.spacing(-20),
-		marginLeft:theme.spacing(-10)
+		marginTop: theme.spacing(-20),
+		marginLeft: theme.spacing(-10),
 	},
 	numberTwo: {
-		marginTop:theme.spacing(-25),
-		marginLeft:theme.spacing(-6)
+		marginTop: theme.spacing(-25),
+		marginLeft: theme.spacing(-6),
 	},
 	numberThree: {
-		marginTop:theme.spacing(-25),
-		marginLeft:theme.spacing(-10)
-	}
+		marginTop: theme.spacing(-25),
+		marginLeft: theme.spacing(-10),
+	},
 }));
 
 const Steps = () => {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
-			<Grid container spacing={2} className={classes.grid}>
+			<Grid container  className={classes.grid} alignItems="center">
 				<Grid item md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blob} alt="blobOne"></img>
@@ -45,7 +46,15 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}></Grid>
+				<Grid item md={6} lg={6}>
+					<Typography variant="h2" color="primary" paragraph>
+						Create an Account.
+					</Typography>
+					<Typography variant="h5">
+						Create and account with us by signing up with your email and
+						password.
+					</Typography>
+				</Grid>
 				<Grid item md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blobOne} alt="blobOne"></img>
@@ -54,7 +63,15 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}></Grid>
+				<Grid item md={6} lg={6}>
+					<Typography variant="h2" color="secondary" paragraph>
+						Give an Invite.
+					</Typography>
+					<Typography variant="h5">
+						Share your invite link with friends,family,loved ones and colleagues
+						wherever they are.
+					</Typography>
+				</Grid>
 				<Grid item md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blobTwo} alt="blobOne"></img>
@@ -63,7 +80,16 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}></Grid>
+				<Grid item md={6} lg={6}>
+
+				<Typography variant="h2" color="#d071da" paragraph>
+						Say Hi!.
+					</Typography>
+					<Typography variant="h5">
+						Start messaging with friends,family,loved ones and colleagues
+						wherever they are.
+					</Typography>
+				</Grid>
 			</Grid>
 		</div>
 	);

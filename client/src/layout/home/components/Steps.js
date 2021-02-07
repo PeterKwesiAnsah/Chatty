@@ -40,7 +40,7 @@ const Steps = () => {
 	return (
 		<div className={classes.root}>
 			<Grid container className={classes.grid} alignItems="center">
-				<Grid item md={6} lg={6}>
+				<Grid item xs={12} sm={12} md={6} lg={6} >
 					<div className={classes.blobAll}>
 						<img src={blob} alt="blobOne"></img>
 						<Typography variant="h1" className={classes.numberOne}>
@@ -48,7 +48,7 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}>
+				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<Typography variant="h2" color="primary" paragraph>
 						Create an Account.
 					</Typography>
@@ -57,7 +57,7 @@ const Steps = () => {
 						password.
 					</Typography>
 				</Grid>
-				<Grid item md={6} lg={6}>
+				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blobOne} alt="blobOne"></img>
 						<Typography variant="h1" className={classes.numberTwo}>
@@ -65,7 +65,7 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}>
+				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<Typography variant="h2" color="secondary" paragraph>
 						Give an Invite.
 					</Typography>
@@ -74,7 +74,7 @@ const Steps = () => {
 						wherever they are.
 					</Typography>
 				</Grid>
-				<Grid item md={6} lg={6}>
+				<Grid item  xs={12} sm={12} md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blobTwo} alt="blobOne"></img>
 						<Typography variant="h1" className={classes.numberThree}>
@@ -82,7 +82,7 @@ const Steps = () => {
 						</Typography>
 					</div>
 				</Grid>
-				<Grid item md={6} lg={6}>
+				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<Typography variant="h2" style={{ color: '#d071da' }} paragraph>
 						Say Hi!.
 					</Typography>

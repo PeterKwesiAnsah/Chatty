@@ -37,7 +37,7 @@ const Steps = () => {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
-			<Grid container  className={classes.grid} alignItems="center">
+			<Grid container className={classes.grid} alignItems="center">
 				<Grid item md={6} lg={6}>
 					<div className={classes.blobAll}>
 						<img src={blob} alt="blobOne"></img>
@@ -81,8 +81,7 @@ const Steps = () => {
 					</div>
 				</Grid>
 				<Grid item md={6} lg={6}>
-
-				<Typography variant="h2" color="#d071da" paragraph>
+					<Typography variant="h2" style={{ color: '#d071da' }} paragraph>
 						Say Hi!.
 					</Typography>
 					<Typography variant="h5">

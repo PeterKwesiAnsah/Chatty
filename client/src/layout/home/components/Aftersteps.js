@@ -26,7 +26,7 @@ const Aftersteps = () => {
 			<Grid container alignItems="center" spacing={1}>
 				<Grid item md={6} lg={6} >
 					<Typography variant="h2" color="secondary">Be the First</Typography>
-					<Typography variant="h2">To Tell your Friends!.</Typography>
+					<Typography variant="h3">To Tell your Friends!.</Typography>
 				</Grid>
 				<Grid item md={6} lg={6}>
 					<Lottie options={defaultOptions} height={350} width={350} />

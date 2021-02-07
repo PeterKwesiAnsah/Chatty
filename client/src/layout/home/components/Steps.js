@@ -4,6 +4,7 @@ import blob from '../../../assets/blob.svg';
 import blobOne from '../../../assets/blob1.svg';
 import blobTwo from '../../../assets/blob2.svg';
 
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 		placeItems: 'center',
 		padding: theme.spacing(8, 10),
 		textAlign: 'center',
+		
 	},
 	blobAll: {
 		position: 'relative',

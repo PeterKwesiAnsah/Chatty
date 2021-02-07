@@ -41,18 +41,18 @@ const Landing = () => {
 			<div className={classes.Landing}>
 				<Lottie
 					options={defaultOptions}
-					height={450}
+					height={550}
 					width={550}
 					style={{ marginRight: '64px' }}
 				/>
 				<div className={classes.textBox}>
-					<Typography variant="h3" color="secondary" paragraph>
+					<Typography variant="h2" color="secondary" paragraph>
 						Chatty
 					</Typography>
-					<Typography variant="h2" paragraph>
+					<Typography variant="h3" paragraph>
 						Just Send An Invite
 					</Typography>
-					<Typography variant="h5" color="primary" paragraph>
+					<Typography variant="h6" color="primary">
 						Join the fastest growing Social Network
 					</Typography>
 					<div className={classes.paragraph}>

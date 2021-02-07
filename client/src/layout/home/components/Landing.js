@@ -52,11 +52,11 @@ const Landing = () => {
 					<Typography variant="h3" paragraph>
 						Just Send An Invite
 					</Typography>
-					<Typography variant="h6" color="primary">
+					<Typography variant="h4" color="primary">
 						Join the fastest growing Social Network
 					</Typography>
 					<div className={classes.paragraph}>
-						<Typography variant="h6">
+						<Typography variant="h5">
 							With Chatty,messaging friends just go easier and better.<br></br>
 							You're just one invite away from communicating with friends
 							<br></br> and family around the World.<br></br>Let's show you how.

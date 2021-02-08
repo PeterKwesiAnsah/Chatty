@@ -34,7 +34,7 @@ const Aftersteps = () => {
 				<Grid item  xs={12} sm={12} md={6} lg={6}>
 					<Lottie options={defaultOptions} height={350} width={350} />
 				</Grid>
-			</Grid>
+			</Grid>  
 		</div>
 	);
 };

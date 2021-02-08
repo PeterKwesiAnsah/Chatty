@@ -59,7 +59,7 @@ const Navbar = () => {
 						</li>
 						<li>
 							<Button href="/login" variant="outlined" className={classes.btn}>
-								<Typography variant="span">Login</Typography>
+								<Typography>Login</Typography>
 							</Button>
 						</li>
 					</ul>

@@ -28,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
 		marginTop:theme.spacing(2),
 		color: 'inherit',
 		borderRadius: theme.spacing(3),
-		backgroundColor: theme.palette.primary.dark,
+		backgroundColor: theme.palette.primary[theme.palette.common.type],
+		'&:hover':{
+			backgroundColor:theme.palette.secondary.main
+		}
 	},
 	lottie: {
 		'@media only screen and (max-width:62.5em)': {

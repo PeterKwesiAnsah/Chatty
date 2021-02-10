@@ -16,13 +16,17 @@ const useStyles = makeStyles((theme) => ({
 		borderTop: '1px solid grey',
 	},
 	socials: {
-        '& > a':{
-			marginRight:theme.spacing(4),
+		'@media only screen and (max-width:62.5em)': {
+			marginTop: theme.spacing(1),
+		},
+		'& > a': {
+			marginRight: theme.spacing(4),
 			'@media only screen and (max-width:62.5em)': {
-				marginRight:theme.spacing(3),
+				marginRight: theme.spacing(3),
+				marginTop: theme.spacing(2),
 			},
-        }
-    },
+		},
+	},
 	logos: {
 		display: 'flex',
 		alignContent: 'center',
@@ -30,15 +34,15 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: 'center',
 
 		'& > img': {
-			marginRight: theme.spacing(4),
+			marginRight: theme.spacing(2),
 		},
-    },
-    copyright:{
-		marginTop:theme.spacing(12),
+	},
+	copyright: {
+		marginTop: theme.spacing(12),
 		'@media only screen and (max-width:62.5em)': {
-			marginTop:theme.spacing(6),
+			marginTop: theme.spacing(6),
 		},
-    }
+	},
 }));
 
 const Footer = () => {
@@ -46,7 +50,7 @@ const Footer = () => {
 	return (
 		<div className={classes.root}>
 			<Grid container alignItems="center">
-				<Grid item  xs={12} sm={12} md={6} lg={6} alignItems="center">
+				<Grid item xs={12} sm={12} md={6} lg={6}>
 					<div className={classes.logos}>
 						<img src={logo} alt="Chatty-Just Send it"></img>
 						<Typography variant="h4" color="secondary" display="inline">
@@ -84,7 +88,9 @@ const Footer = () => {
 					</div>
 				</Grid>
 			</Grid>
-            <Typography varint="h6" className={classes.copyright}>Copyright &#169; 2021 All Rights Reserved.</Typography>
+			<Typography varint="h6" className={classes.copyright}>
+				Copyright &#169; 2021 All Rights Reserved.
+			</Typography>
 		</div>
 	);
 };

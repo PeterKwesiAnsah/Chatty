@@ -3,12 +3,17 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 import animationData from '../../../lotties/growthAnimation.json';
 import Lottie from 'react-lottie';
 
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
-        padding: theme.spacing(8)
-    }
+		padding: theme.spacing(8),
+	},
+	lottie:{
+		overflow: 'hidden',
+		'@media only screen and (max-width:62.5em)': {
+			marginTop:theme.spacing(2),
+		},
+	}
 }));
 
 const defaultOptions = {
@@ -31,10 +36,12 @@ const Aftersteps = () => {
 					</Typography>
 					<Typography variant="h3">To Tell your Friends!.</Typography>
 				</Grid>
-				<Grid item  xs={12} sm={12} md={6} lg={6}>
-					<Lottie options={defaultOptions} height={350} width={350} />
+				<Grid item xs={12} sm={12} md={6} lg={6}>
+					<div className={classes.lottie}>
+						<Lottie options={defaultOptions} height={350} width={300} />
+					</div>
 				</Grid>
-			</Grid>  
+			</Grid>
 		</div>
 	);
 };

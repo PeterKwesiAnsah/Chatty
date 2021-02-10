@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
 		display: 'grid',
 		placeItems: 'center',
 		padding: theme.spacing(8, 10),
+		'@media only screen and (max-width:62.5em)': {
+			padding: theme.spacing(2, 4),
+			overFlow:'hidden'
+		},
 		textAlign: 'center',
 		
 	},

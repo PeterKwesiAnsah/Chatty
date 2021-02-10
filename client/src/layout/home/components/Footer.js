@@ -10,11 +10,17 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		textAlign: 'center',
 		padding: theme.spacing(14, 0),
+		'@media only screen and (max-width:62.5em)': {
+			padding: theme.spacing(7, 0),
+		},
 		borderTop: '1px solid grey',
 	},
 	socials: {
         '& > a':{
-            marginRight:theme.spacing(4)
+			marginRight:theme.spacing(4),
+			'@media only screen and (max-width:62.5em)': {
+				marginRight:theme.spacing(3),
+			},
         }
     },
 	logos: {
@@ -28,7 +34,10 @@ const useStyles = makeStyles((theme) => ({
 		},
     },
     copyright:{
-        marginTop:theme.spacing(12)
+		marginTop:theme.spacing(12),
+		'@media only screen and (max-width:62.5em)': {
+			marginTop:theme.spacing(6),
+		},
     }
 }));
 

@@ -17,14 +17,24 @@ const useStlyes = makeStyles((theme) => ({
 			marginLeft: 'auto',
 			width: '30%',
 			height: '30%',
+			'@media only screen and (max-width:62.5em)': {
+				display: 'none',
+			},
 		},
 		'& a': {
 			color: 'inherit',
+			// '@media only screen and (max-width:62.5em)': {
+			// 	marginLeft: theme.spacing(2),
+			// },
 		},
 	},
 	imgBlock: {
 		height: theme.spacing(6),
 		width: theme.spacing(6),
+		'@media only screen and (max-width:62.5em)': {
+			height: theme.spacing(5),
+			width: theme.spacing(5),
+		},
 	},
 	img: {
 		width: '100%',
@@ -36,6 +46,10 @@ const useStlyes = makeStyles((theme) => ({
 		borderRadius: theme.spacing(3),
 		textTransform: 'none',
 	},
+	typo: {
+		fontSize: '1.05rem',
+		borderBottom: '2px solid #fff',
+	},
 }));
 
 //https://cdn.svgporn.com/logos/akka.svg
@@ -45,17 +59,21 @@ const Navbar = () => {
 	return (
 		<div className={classes.root}>
 			<div className={classes.imgBlock}>
-				<img
-					src={logo}
-					alt="Just Send An Invite"
-					className={classes.img}   
-				></img>
+				<img src={logo} alt="Just Send An Invite" className={classes.img}></img>
 			</div>
 			<Router>
 				<nav>
 					<ul>
 						<li>
-							<Link to="/signUp"><Typography variant="h6" style={{fontSize:'1.05rem'}}>SignUp</Typography></Link>
+							<Link to="/signUp">
+								<Typography
+									variant="h6"
+									color="primary"
+									className={classes.typo}
+								>
+									SignUp
+								</Typography>
+							</Link>
 						</li>
 						<li>
 							<Button href="/login" variant="outlined" className={classes.btn}>

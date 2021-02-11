@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 		
 	},
 	blobAll: {
-		position: 'relative',
+		position: 'relative',   
 
 		width: theme.spacing(37),
 		height: theme.spacing(37),

@@ -58,14 +58,14 @@ const typeDefs = gql`
 
 	input SettingsInput{
 		theme:String
-		pushNotifications:String
+		pushNotifications:String  
 	}
 
 	type Mutation {
 		signUp(input: signUpInput): AuthUser!
 		signIn(input: signinInput): AuthUser!
 		createMessage(input: MessageInput!): Message!
-		updateSettngs(input:SettingsInput):Settings!
+		updateSettings(input:SettingsInput):Settings!
 	}
 
 	input signUpInput {

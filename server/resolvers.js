@@ -5,7 +5,7 @@ const { PubSub } = require('apollo-server');
 const pubsub = new PubSub();
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
-const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';
+const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';  
 
 module.exports = {
 	Mutation: {
@@ -104,6 +104,7 @@ module.exports = {
 		settings: async (_, __, { user, models }) => {
 			return await models.Settings.findOne({ userID: user.id });
 		},
+		me:(_,__,{user})=>user
 	},
 
 	User: {

@@ -11,14 +11,14 @@ function App() {
 			<GlobalStyles></GlobalStyles>
 			<Router>
 				<Switch>
-					<Route path="/" exact>
-						<Home></Home>
-					</Route>
-					<Route path="/signUp">
+					<Route path="/signUp" exact>
 						<SignUpView></SignUpView>
 					</Route>
 					<Route path="/login">
 						<LoginView></LoginView>
+					</Route>
+					<Route path="/" exact>
+						<Home></Home>
 					</Route>
 				</Switch>
 			</Router>

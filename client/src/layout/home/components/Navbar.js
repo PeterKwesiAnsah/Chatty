@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Button, Typography } from '@material-ui/core';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import logo from '../../../assets/logo.svg';
+import { useLocation } from 'react-router-dom';
 const useStlyes = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
@@ -53,28 +54,40 @@ const useStlyes = makeStyles((theme) => ({
 }));
 
 //https://cdn.svgporn.com/logos/akka.svg
-const Navbar = () => {
+const Navbar = ({ type }) => {
 	const classes = useStlyes();
+
+	//location
+	const { pathname } = useLocation();
 
 	return (
 		<div className={classes.root}>
 			<div className={classes.imgBlock}>
-				<img src={logo} alt="Just Send An Invite" className={classes.img}></img>
+				<a href="/" alt="logo">
+					<img
+						src={logo}
+						alt="Just Send An Invite"
+						className={classes.img}
+					></img>
+				</a>
 			</div>
-			<Router>
+			<>
 				<nav>
 					<ul>
-						<li>
-							<Link to="/signUp">
-								<Typography
-									variant="h6"
-									color="primary"
-									className={classes.typo}
-								>
-									SignUp
-								</Typography>
-							</Link>
-						</li>
+						{!(pathname.includes('signUp') || pathname !== '/') && (
+							<li>
+								<Link to="/signUp">
+									<Typography
+										variant="h6"
+										color="primary"
+										className={classes.typo}
+									>
+										SignUp
+									</Typography>
+								</Link>
+							</li>
+						)}
+
 						<li>
 							<Button href="/login" variant="outlined" className={classes.btn}>
 								<Typography>Login</Typography>
@@ -82,7 +95,7 @@ const Navbar = () => {
 						</li>
 					</ul>
 				</nav>
-			</Router>
+			</>
 		</div>
 	);
 };

@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import NavBar from '../layout/home/components/Navbar';
 import { makeStyles, TextField, Typography, Button } from '@material-ui/core';
 import signUpImg from '../assets/signUpImg.jpg';
+import { gql, useMutation } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
 	box: {
@@ -72,21 +73,36 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+//signUp Mutation
+const SIGN_UP = gql`
+	mutation createUser($user: signUpInput!) {
+		signUp(input: $user) {
+			token
+			user {
+				id
+			}
+		}
+	}
+`;
+
 const SignUpView = () => {
 	const classes = useStyles();
-
 	//get User SignUp details
 	const [userDetails, setUserDetails] = useState({
 		email: '',
 		password: '',
 	});
-	//for
+	//disables button when both inputs hasn't being filed yet
+	const disabler = () => userDetails.email && userDetails.password;
 
 	//handleOnChange
 	const handleChange = ({ target }) => {
 		setUserDetails({ ...userDetails, [target.name]: target.value });
 	};
-	console.log(userDetails);
+
+	//handleClick
+	const handleClick = () => {};
+
 	return (
 		<>
 			<div className={classes.box}>
@@ -125,10 +141,16 @@ const SignUpView = () => {
 									onChange={handleChange}
 								/>
 							</div>
+							<Button
+								variant="contained"
+								fullWidth
+								color="primary"
+								disabled={!disabler()}
+								onClick={handleClick}
+							>
+								<Typography variant="subtitle1">Sign Up</Typography>
+							</Button>
 						</form>
-						<Button>
-							<Typography>Sign Up</Typography>
-						</Button>
 					</div>
 				</div>
 			</div>
@@ -137,3 +159,13 @@ const SignUpView = () => {
 };
 
 export default SignUpView;
+
+// 	function ValidateEmail(mail)
+// {
+//  if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(myForm.emailAddr.value))
+//   {
+//     return (true)
+//   }
+//     alert("You have entered an invalid email address!")
+//     return (false)
+// }

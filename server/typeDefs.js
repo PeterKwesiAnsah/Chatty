@@ -54,7 +54,7 @@ const typeDefs = gql`
 	input MessageInput {
 		receiverID: String!
 		content: String!
-	}
+	} 
 
 	input SettingsInput{
 		theme:String
@@ -62,8 +62,8 @@ const typeDefs = gql`
 	}
 
 	type Mutation {
-		signUp(input: signUpInput): AuthUser!
-		signIn(input: signinInput): AuthUser!
+		signUp(input: signUpInput!): AuthUser!
+		signIn(input: signinInput!): AuthUser!
 		createMessage(input: MessageInput!): Message!
 		updateSettings(input:SettingsInput):Settings!
 	}

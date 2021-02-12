@@ -1,6 +1,6 @@
-import React from 'react';
+import { React, useState } from 'react';
 import NavBar from '../layout/home/components/Navbar';
-import { makeStyles, TextField, Typography } from '@material-ui/core';
+import { makeStyles, TextField, Typography, Button } from '@material-ui/core';
 import signUpImg from '../assets/signUpImg.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 
 		'& .MuiInputLabel-shrink': {
-			transform: 'translate(12px, -18px) scale(0.9)',
+			transform: 'translate(12px, -18px) scale(0.75)',
 		},
 		'& .Mui-focused input:hover': {
 			border: '0',
@@ -74,6 +74,19 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUpView = () => {
 	const classes = useStyles();
+
+	//get User SignUp details
+	const [userDetails, setUserDetails] = useState({
+		email: '',
+		password: '',
+	});
+	//for
+
+	//handleOnChange
+	const handleChange = ({ target }) => {
+		setUserDetails({ ...userDetails, [target.name]: target.value });
+	};
+	console.log(userDetails);
 	return (
 		<>
 			<div className={classes.box}>
@@ -94,22 +107,28 @@ const SignUpView = () => {
 						<form className={classes.form} noValidate autoComplete="off">
 							<div className={classes.textField}>
 								<TextField
-									id="email"
+									name="email"
 									label="Email"
 									variant="outlined"
-									color="transparent"
 									type="email"
+									value={userDetails.email}
+									onChange={handleChange}
 								/>
 							</div>
 							<div className={classes.textField}>
 								<TextField
-									id="password"
 									label="Password"
+									name="password"
 									variant="outlined"
 									type="password"
+									value={userDetails.password}
+									onChange={handleChange}
 								/>
 							</div>
 						</form>
+						<Button>
+							<Typography>Sign Up</Typography>
+						</Button>
 					</div>
 				</div>
 			</div>

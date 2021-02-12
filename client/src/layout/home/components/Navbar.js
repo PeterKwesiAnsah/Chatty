@@ -54,7 +54,7 @@ const useStlyes = makeStyles((theme) => ({
 }));
 
 //https://cdn.svgporn.com/logos/akka.svg
-const Navbar = ({ type }) => {
+const Navbar = () => {
 	const classes = useStlyes();
 
 	//location

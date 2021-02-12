@@ -18,10 +18,7 @@ const useStyles = makeStyles((theme) => ({
 			color: 'white',
 		},
 	},
-
 	textField: {
-		// margin: theme.spacing(4, 0),
-
 		marginBottom: theme.spacing(5),
 		'& .MuiFormControl-root': {
 			width: '100%',
@@ -44,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 		},
 		'& .Mui-focused input:hover': {
 			border: '0',
+		},
+		'& fieldset': {
+			borderColor: 'antiquewhite !important',
 		},
 	},
 	imgBox: {
@@ -70,9 +70,6 @@ const useStyles = makeStyles((theme) => ({
 	formBox: {
 		padding: theme.spacing(5),
 	},
-	'& fieldset .MuiOutlinedInput-root:hover': {
-		borderColor: 'none'
-	},
 }));
 
 const SignUpView = () => {
@@ -81,10 +78,8 @@ const SignUpView = () => {
 		<>
 			<div className={classes.box}>
 				<div className={classes.imgBox}>
-					{/* <img src={signUpImg} alt="sign Up here" className={classes.img}></img> */}
 					<Typography variant="h4">Just Send an Invite!.</Typography>
 				</div>
-
 				<div className={classes.signUp}>
 					<NavBar></NavBar>
 					<div className={classes.header}>
@@ -116,15 +111,6 @@ const SignUpView = () => {
 							</div>
 						</form>
 					</div>
-					{/* 
-					<form className={classes.form} noValidate autoComplete="off">
-						<div className={classes.textField}>
-							<TextField id="email" label="Email" variant="outlined" />
-						</div>
-						<div className={classes.textField}>
-							<TextField id="password" label="Password" variant="outlined" />
-						</div>
-					</form> */}
 				</div>
 			</div>
 		</>

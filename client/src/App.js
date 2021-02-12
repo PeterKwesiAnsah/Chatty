@@ -5,9 +5,12 @@ import theme from './theme/theme.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SignUpView from './layout/SignUpView';
 import LoginView from './layout/LoginView';
+import { ApolloProvider } from '@apollo/client';
+import client from './client'
 function App() {
 	return (
-		<ThemeProvider theme={responsiveFontSizes(theme)}>
+		<ApolloProvider client={client}>
+			<ThemeProvider theme={responsiveFontSizes(theme)}>
 			<GlobalStyles></GlobalStyles>
 			<Router>
 				<Switch>
@@ -23,6 +26,8 @@ function App() {
 				</Switch>
 			</Router>
 		</ThemeProvider>
+		</ApolloProvider>
+		
 	);
 }
 

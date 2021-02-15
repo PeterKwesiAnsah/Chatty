@@ -3,7 +3,7 @@ import NavBar from '../layout/home/components/Navbar';
 import { makeStyles, TextField, Typography, Button } from '@material-ui/core';
 import signUpImg from '../assets/signUpImg.jpg';
 import { gql, useMutation } from '@apollo/client';
-
+import { useParams } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 	box: {
 		display: 'flex',
@@ -87,6 +87,11 @@ const SIGN_UP = gql`
 
 const SignUpView = () => {
 	const classes = useStyles();
+
+	//get invitedById
+	const code = useParams()?.code;
+
+	const [createUser, { data }] = useMutation(SIGN_UP);
 	//get User SignUp details
 	const [userDetails, setUserDetails] = useState({
 		email: '',
@@ -101,7 +106,9 @@ const SignUpView = () => {
 	};
 
 	//handleClick
-	const handleClick = () => {};
+	const handleClick = () => {
+		//H
+	};
 
 	return (
 		<>

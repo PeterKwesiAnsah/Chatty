@@ -14,7 +14,10 @@ function App() {
 			<GlobalStyles></GlobalStyles>
 			<Router>
 				<Switch>
-					<Route path="/signUp" exact>
+					<Route path="/signUp" >
+						<SignUpView></SignUpView>
+					</Route>
+					<Route path="/signUp&inviteCode=:code" >
 						<SignUpView></SignUpView>
 					</Route>
 					<Route path="/login">

@@ -1,6 +1,12 @@
 import { React, useState } from 'react';
 import NavBar from '../layout/home/components/Navbar';
-import { makeStyles, TextField, Typography, Button } from '@material-ui/core';
+import {
+	makeStyles,
+	TextField,
+	Typography,
+	Button,
+	CircularProgress,
+} from '@material-ui/core';
 import signUpImg from '../assets/signUpImg.jpg';
 import { gql, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
@@ -8,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	box: {
 		display: 'flex',
 		width: '100%',
+		// opacity:''
 	},
 	form: {
 		width: '100%',
@@ -71,6 +78,12 @@ const useStyles = makeStyles((theme) => ({
 	formBox: {
 		padding: theme.spacing(5),
 	},
+	loader: {
+		width: '100%',
+		display: 'grid',
+		placeItems: 'center',
+		margin: theme.spacing(2, 0),
+	},
 }));
 
 //signUp Mutation
@@ -107,7 +120,11 @@ const SignUpView = () => {
 
 	//handleClick
 	const handleClick = () => {
-		//H
+		if (code) {
+			//run signup mutation for signUps with invite Code
+			createUser({ variables: { user: { ...userDetails, invitedBy: code } } });
+		}
+		createUser({ variables: { user: userDetails } });
 	};
 
 	return (
@@ -138,7 +155,7 @@ const SignUpView = () => {
 									onChange={handleChange}
 								/>
 							</div>
-							<div className={classes.textField}>
+							<div className={classes.textField} style={{ marginBottom: '0' }}>
 								<TextField
 									label="Password"
 									name="password"
@@ -148,16 +165,23 @@ const SignUpView = () => {
 									onChange={handleChange}
 								/>
 							</div>
-							<Button
-								variant="contained"
-								fullWidth
-								color="primary"
-								disabled={!disabler()}
-								onClick={handleClick}
-							>
-								<Typography variant="subtitle1">Sign Up</Typography>
-							</Button>
 						</form>
+						<div className={classes.loader}>
+							<CircularProgress color="secondary"></CircularProgress>
+						</div>
+
+						<Button
+							variant="contained"
+							fullWidth
+							color="primary"
+							disabled={!disabler()}
+							onClick={handleClick}
+							className={classes.btn}
+						>
+							<Typography variant="subtitle1">
+								<span style={{ color:`${!disabler() ? '#ffffff9e':'#fff'}` }}>Sign Up</span>
+							</Typography>
+						</Button>
 					</div>
 				</div>
 			</div>

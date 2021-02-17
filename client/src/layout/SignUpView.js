@@ -51,7 +51,13 @@ const useStyles = makeStyles((theme) => ({
 			border: '0',
 		},
 		'& fieldset': {
-			borderColor: 'antiquewhite !important',
+			borderColor: theme.palette.secondary.dark,
+		},
+
+		'& .MuiOutlinedInput-root:hover': {
+			'& fieldset': {
+				borderColor:theme.palette.secondary.light,
+			},
 		},
 	},
 	imgBox: {
@@ -84,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
 		placeItems: 'center',
 		margin: theme.spacing(2, 0),
 	},
+	btn: {
+		marginTop: theme.spacing(4),
+	},
 }));
 
 //signUp Mutation
@@ -104,7 +113,7 @@ const SignUpView = () => {
 	//get invitedById
 	const code = useParams()?.code;
 
-	const [createUser, { data }] = useMutation(SIGN_UP);
+	const [createUser, { data, loading, error }] = useMutation(SIGN_UP);
 	//get User SignUp details
 	const [userDetails, setUserDetails] = useState({
 		email: '',
@@ -126,6 +135,11 @@ const SignUpView = () => {
 		}
 		createUser({ variables: { user: userDetails } });
 	};
+
+	if (data) {
+		//get token..
+		//save token to local Storage
+	}
 
 	return (
 		<>
@@ -153,6 +167,8 @@ const SignUpView = () => {
 									type="email"
 									value={userDetails.email}
 									onChange={handleChange}
+									error={false}
+									helperText={error && 'Something Went Wrong'}
 								/>
 							</div>
 							<div className={classes.textField} style={{ marginBottom: '0' }}>
@@ -163,12 +179,15 @@ const SignUpView = () => {
 									type="password"
 									value={userDetails.password}
 									onChange={handleChange}
+									error={error}
 								/>
 							</div>
 						</form>
-						<div className={classes.loader}>
-							<CircularProgress color="secondary"></CircularProgress>
-						</div>
+						{loading && (
+							<div className={classes.loader}>
+								<CircularProgress color="secondary"></CircularProgress>
+							</div>
+						)}
 
 						<Button
 							variant="contained"
@@ -179,7 +198,11 @@ const SignUpView = () => {
 							className={classes.btn}
 						>
 							<Typography variant="subtitle1">
-								<span style={{ color:`${!disabler() ? '#ffffff9e':'#fff'}` }}>Sign Up</span>
+								<span
+									style={{ color: `${!disabler() ? '#ffffff9e' : '#fff'}` }}
+								>
+									Sign Up
+								</span>
 							</Typography>
 						</Button>
 					</div>

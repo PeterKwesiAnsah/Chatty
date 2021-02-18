@@ -14,11 +14,19 @@ const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: async ({ req, connection }) => {
-		const token = req?.headers.authorization || connection.context.authorization;
+		const token =
+			req?.headers.authorization || connection.context.authorization || null;
 
-		const user = await getUserFromToken(token, models.User);
+		try {
+			if (token) {
+				const user = await getUserFromToken(token, models.User);
 
-		return { user, createToken, getUserFromToken, models };
+				return { user, createToken, getUserFromToken, models };
+			}
+			return { createToken, getUserFromToken, models };
+		} catch (e) {
+			console.log(e);
+		}
 	},
 });
 

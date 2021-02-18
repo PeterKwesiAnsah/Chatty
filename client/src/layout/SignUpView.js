@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import signUpImg from '../assets/signUpImg.jpg';
 import { gql, useMutation } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
 	box: {
 		display: 'flex',
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 		'& .MuiOutlinedInput-root:hover': {
 			'& fieldset': {
-				borderColor:theme.palette.secondary.light,
+				borderColor: theme.palette.secondary.light,
 			},
 		},
 	},
@@ -100,15 +100,14 @@ const SIGN_UP = gql`
 	mutation createUser($user: signUpInput!) {
 		signUp(input: $user) {
 			token
-			user {
-				id
-			}
 		}
 	}
 `;
 
 const SignUpView = () => {
 	const classes = useStyles();
+
+	const history = useHistory();
 
 	//get invitedById
 	const code = useParams()?.code;
@@ -127,18 +126,41 @@ const SignUpView = () => {
 		setUserDetails({ ...userDetails, [target.name]: target.value });
 	};
 
+	const handleError = () => {
+		if (error) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	//handleClick
 	const handleClick = () => {
-		if (code) {
-			//run signup mutation for signUps with invite Code
-			createUser({ variables: { user: { ...userDetails, invitedBy: code } } });
+		try{
+			if (code) {
+			
+				//run signup mutation for signUps with invite Code
+				createUser({ variables: { user: { ...userDetails, invitedBy: code } } });
+			}
+			console.log(userDetails);
+			
+			createUser({ variables: { user: userDetails } });
 		}
-		createUser({ variables: { user: userDetails } });
+		catch(e){
+			console.log(e)
+		}
+		
 	};
+	
 
 	if (data) {
 		//get token..
+		const { token } = data.signUp;
+
 		//save token to local Storage
+		localStorage.setItem('token', token);
+
+		if (!code) history.push('/share');
 	}
 
 	return (
@@ -167,7 +189,7 @@ const SignUpView = () => {
 									type="email"
 									value={userDetails.email}
 									onChange={handleChange}
-									error={false}
+									error={handleError()}
 									helperText={error && 'Something Went Wrong'}
 								/>
 							</div>
@@ -179,7 +201,7 @@ const SignUpView = () => {
 									type="password"
 									value={userDetails.password}
 									onChange={handleChange}
-									error={error}
+									error={handleError()}
 								/>
 							</div>
 						</form>

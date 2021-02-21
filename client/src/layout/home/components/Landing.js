@@ -94,7 +94,7 @@ const Landing = () => {
 						</Typography>
 					</div>
 					<Button variant="contained" className={classes.btn}>
-						<Typography variant="span">Get Started</Typography>
+						<Typography>Get Started</Typography>
 					</Button>
 				</div>
 			</div>

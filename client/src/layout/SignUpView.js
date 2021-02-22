@@ -136,22 +136,19 @@ const SignUpView = () => {
 
 	//handleClick
 	const handleClick = () => {
-		try{
+		try {
 			if (code) {
-			
 				//run signup mutation for signUps with invite Code
-				createUser({ variables: { user: { ...userDetails, invitedBy: code } } });
+				createUser({
+					variables: { user: { ...userDetails, invitedBy: code } },
+				});
 			}
-			console.log(userDetails);
-			
+
 			createUser({ variables: { user: userDetails } });
+		} catch (e) {
+			console.log(e);
 		}
-		catch(e){
-			console.log(e)
-		}
-		
 	};
-	
 
 	if (data) {
 		//get token..

@@ -7,8 +7,8 @@ const useStlyes = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		padding: theme.spacing(2),
-		justifyContent: 'space-around',
-		alignItems: 'center',
+		// justifyContent: 'space-around',
+		// alignItems: 'center',
 		'& ul': {
 			display: 'flex',
 			justifyContent: 'space-around',
@@ -24,9 +24,6 @@ const useStlyes = makeStyles((theme) => ({
 		},
 		'& a': {
 			color: 'inherit',
-			// '@media only screen and (max-width:62.5em)': {
-			// 	marginLeft: theme.spacing(2),
-			// },
 		},
 	},
 	imgBlock: {
@@ -38,8 +35,8 @@ const useStlyes = makeStyles((theme) => ({
 		},
 	},
 	img: {
-		width: '100%',
-		height: '100%',
+		// width: '100%',
+		// height: '100%',
 	},
 	btn: {
 		borderColor: theme.palette.primary.dark,
@@ -54,7 +51,7 @@ const useStlyes = makeStyles((theme) => ({
 }));
 
 //https://cdn.svgporn.com/logos/akka.svg
-const Navbar = () => {
+const Navbar = ({ show }) => {
 	const classes = useStlyes();
 
 	//location
@@ -72,29 +69,34 @@ const Navbar = () => {
 				</a>
 			</div>
 			<>
-				<nav>
-					<ul>
-						{!(pathname.includes('signUp') || pathname !== '/') && (
+				{show && (
+					<nav>
+						<ul>
+							{!(pathname.includes('signUp') || pathname !== '/') && (
+								<li>
+									<Link to="/signUp">
+										<Typography
+											variant="h6"
+											color="primary"
+											className={classes.typo}
+										>
+											SignUp
+										</Typography>
+									</Link>
+								</li>
+							)}
 							<li>
-								<Link to="/signUp">
-									<Typography
-										variant="h6"
-										color="primary"
-										className={classes.typo}
-									>
-										SignUp
-									</Typography>
-								</Link>
+								<Button
+									href="/login"
+									variant="outlined"
+									className={classes.btn}
+								>
+									<Typography>Login</Typography>
+								</Button>
 							</li>
-						)}
-
-						<li>
-							<Button href="/login" variant="outlined" className={classes.btn}>
-								<Typography>Login</Typography>
-							</Button>
-						</li>
-					</ul>
-				</nav>
+						</ul>
+					</nav>
+				)}
 			</>
 		</div>
 	);

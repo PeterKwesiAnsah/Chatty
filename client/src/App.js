@@ -5,9 +5,9 @@ import theme from './theme/theme.js';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SignUpView from './layout/SignUpView';
 import LoginView from './layout/LoginView';
+import ShareView from './layout/ShareView';
 import { ApolloProvider } from '@apollo/client';
 import client from './client';
-
 
 function App() {
 	return (
@@ -16,6 +16,9 @@ function App() {
 				<GlobalStyles></GlobalStyles>
 				<Router>
 					<Switch>
+						<Route path="/share">
+							<ShareView></ShareView>
+						</Route>
 						<Route path="/signUp">
 							<SignUpView></SignUpView>
 						</Route>

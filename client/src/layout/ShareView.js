@@ -8,9 +8,10 @@ import {
 	IconButton,
 } from '@material-ui/core';
 import Navbar from './home/components/Navbar';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import {useHistory} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,29 +52,41 @@ const useStyles = makeStyles((theme) => ({
 		textDecoration: 'underline',
 	},
 }));
+const NEW_SIGNUP = gql`
+	subscription newSignUp {
+		newSignUp {
+			user {
+				invitedBy
+			}
+		}
+	}
+
+`;
+
+//get user query
+const GET_ME = gql`
+	query getMe {
+		me {
+			id
+			friends {
+				email
+			}
+		}
+	}
+`;
 const Share = () => {
 	const classes = useStyles();
 
-	//
-
+	//History Object
+	const history=useHistory()
+	const { data: newSignUpData } = useSubscription(NEW_SIGNUP);
 	// const InputEl = useRef();
 	//Snackbar state
 	const [open, setOpen] = useState(false);
-	//get user query
-	const GET_ME = gql`
-		query getMe {
-			me {
-				id
-				friends {
-					email
-				}
-			}
-		}
-	`;
 
 	const { loading, error, data } = useQuery(GET_ME);
 
-	console.log(data);
+	
 
 	//handles copy to clipboard
 	const handleCopy = () => {
@@ -87,6 +100,16 @@ const Share = () => {
 
 		setOpen(false);
 	};
+
+	if(newSignUpData){
+		const {invitedBy}=newSignUpData.newSignUp.user
+		if(invitedBy===data.me.id){
+			console.log("you have a new signUp")
+			history.push("/chat")
+		
+
+		}
+	}
 
 	return (
 		<div className={classes.root}>

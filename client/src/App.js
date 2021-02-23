@@ -8,6 +8,7 @@ import LoginView from './layout/LoginView';
 import ShareView from './layout/ShareView';
 import { ApolloProvider } from '@apollo/client';
 import client from './client';
+// import ChatV;     
 
 function App() {
 	return (
@@ -16,6 +17,9 @@ function App() {
 				<GlobalStyles></GlobalStyles>
 				<Router>
 					<Switch>
+						<Route path="/chat">
+							{/* <ChatView></ChatView> */}
+						</Route>
 						<Route path="/share">
 							<ShareView></ShareView>
 						</Route>

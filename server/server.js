@@ -16,7 +16,6 @@ const server = new ApolloServer({
 	context: async ({ req, connection }) => {
 		const token =
 			req?.headers.authorization || connection.context.authorization || null;
-
 		try {
 			if (token) {
 				const user = await getUserFromToken(token, models.User);

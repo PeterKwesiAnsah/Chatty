@@ -158,6 +158,10 @@ const SignUpView = () => {
 		localStorage.setItem('token', token);
 
 		if (!code) history.push('/share');
+		
+		else {
+			history.push('/chat');
+		}
 	}
 
 	return (

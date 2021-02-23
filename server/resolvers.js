@@ -30,7 +30,7 @@ module.exports = {
 			//return the user and token
 			const token = createToken(user);
 
-			if (!invitedBy) {
+			if (invitedBy) {
 				pubsub.publish(NEW_SIGNUP, { newSignUp: { token, user } });
 			}
 

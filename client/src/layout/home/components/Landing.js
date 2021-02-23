@@ -63,7 +63,7 @@ const Landing = () => {
 
 	return (
 		<div className={classes.root}>
-			<Navbar></Navbar>
+			<Navbar show></Navbar>
 			<div className={classes.Landing}>
 				<div className={classes.lottie}>
 					<Lottie
@@ -93,7 +93,8 @@ const Landing = () => {
 							around the World.Let's show you how.
 						</Typography>
 					</div>
-					<Button variant="contained" className={classes.btn}>
+					<Button variant="contained" className={classes.btn} href="/signUp">
+						
 						<Typography>Get Started</Typography>
 					</Button>
 				</div>

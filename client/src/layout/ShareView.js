@@ -1,4 +1,5 @@
-import React, { useState, Fragment, useRef } from 'react';
+import React, { useState, Fragment } from 'react';
+import CloseIcon from '@material-ui/icons/Close';
 import {
 	makeStyles,
 	Typography,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: 'center',
 	},
 	invite: {
-		padding: theme.spacing(0.5),
+		padding: theme.spacing(0.5, 2),
 		backgroundColor: '#80808029',
 		borderRadius: theme.spacing(1),
 	},
@@ -41,18 +42,19 @@ const useStyles = makeStyles((theme) => ({
 		color: theme.palette.common.white,
 		backgroundColor: '#80808029',
 		textTransform: 'none',
+		marginBottom: theme.spacing(3),
 		'&:hover': {
 			backgroundColor: '#80808033',
 		},
 	},
-	input: {
-		width: '0',
-		height: '0',
-		opacity: 0,
+	note: {
+		textDecoration: 'underline',
 	},
 }));
 const Share = () => {
 	const classes = useStyles();
+
+	//
 
 	// const InputEl = useRef();
 	//Snackbar state
@@ -62,25 +64,61 @@ const Share = () => {
 		query getMe {
 			me {
 				id
+				friends {
+					email
+				}
 			}
 		}
 	`;
+
 	const { loading, error, data } = useQuery(GET_ME);
 
+	console.log(data);
+
+	//handles copy to clipboard
 	const handleCopy = () => {
-		
+		setOpen(true);
+	};
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+
+		setOpen(false);
 	};
 
 	return (
 		<div className={classes.root}>
+			<Snackbar
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'left',
+				}}
+				open={open}
+				autoHideDuration={6000}
+				onClose={handleClose}
+				message="Invite Copied"
+				action={
+					<Fragment>
+						<IconButton
+							size="small"
+							aria-label="close"
+							color="inherit"
+							onClick={handleClose}
+						>
+							<CloseIcon fontSize="small" />
+						</IconButton>
+					</Fragment>
+				}
+			/>
 			<Navbar></Navbar>
 			<div className={classes.linkMessage}>
 				<Typography variant="h2">
 					Hey You,
 					<Typography variant="h2" color="primary" display="inline">
-						Welcome!
+						Share!
 					</Typography>
-					{/* <Typography variant="h4">Copy & Share!</Typography> */}
 				</Typography>
 				{loading ? (
 					<Skeleton
@@ -90,7 +128,6 @@ const Share = () => {
 					></Skeleton>
 				) : (
 					<div className={classes.inviteBox}>
-
 						<Typography variant="h6" className={classes.invite} paragraph>
 							{'http://localhost:3000/signUp&inviteCode=' + data?.me.id}
 						</Typography>
@@ -102,6 +139,20 @@ const Share = () => {
 								<Typography>Copy</Typography>
 							</Button>
 						</CopyToClipboard>
+						{data.me.friends.length ? (
+							<Typography variant="h6">
+								You have a friend,
+								<a href="/chat">
+									<Typography color="primary" display="inline" variant="h6">
+										Say Hi!
+									</Typography>
+								</a>
+							</Typography>
+						) : (
+							<Typography variant="h6" className={classes.note}>
+								Page automatically redirects as soon as a friend signs up.
+							</Typography>
+						)}
 					</div>
 				)}
 			</div>

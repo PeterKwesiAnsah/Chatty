@@ -11,7 +11,7 @@ import Navbar from './home/components/Navbar';
 import { gql, useQuery, useSubscription } from '@apollo/client';
 import Skeleton from '@material-ui/lab/Skeleton';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -60,7 +60,6 @@ const NEW_SIGNUP = gql`
 			}
 		}
 	}
-
 `;
 
 //get user query
@@ -78,15 +77,13 @@ const Share = () => {
 	const classes = useStyles();
 
 	//History Object
-	const history=useHistory()
+	const history = useHistory();
 	const { data: newSignUpData } = useSubscription(NEW_SIGNUP);
 	// const InputEl = useRef();
 	//Snackbar state
 	const [open, setOpen] = useState(false);
 
 	const { loading, error, data } = useQuery(GET_ME);
-
-	
 
 	//handles copy to clipboard
 	const handleCopy = () => {
@@ -101,13 +98,11 @@ const Share = () => {
 		setOpen(false);
 	};
 
-	if(newSignUpData){
-		const {invitedBy}=newSignUpData.newSignUp.user
-		if(invitedBy===data.me.id){
-			console.log("you have a new signUp")
-			history.push("/chat")
-		
-
+	if (newSignUpData) {
+		const { invitedBy } = newSignUpData.newSignUp.user;
+		if (invitedBy === data.me.id) {
+			console.log('you have a new signUp');
+			history.push('/chat');
 		}
 	}
 

@@ -1,16 +1,28 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import Messages from './Messages';
-import { makeStyles } from '@material-ui/core';
-import wa
+import ChatBox from './ChatBox';
+import { makeStyles,Typography } from '@material-ui/core';
+import wallPaperFour from '../../../assets/wallPaperFour.jpg';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '70%',
+		width: '65%',
 		height: '100%',
 	},
-    wallPaper:{
-
+	wallPaper: {
+		backgroundImage: `url(${wallPaperFour})`,
+        width:'100%',
+        height:'100%',
+        backgroundRepeat: 'no-repeat',
+		backgroundPosition: '50%',
+		backgroundSize: 'cover',
+        display:'grid',
+        placeItems:'center'
+	},
+    message:{
+        backgroundColor:'#424242',
+        padding:theme.spacing(0.5),
+        borderRadius:theme.spacing(1)
     }
 }));
 const ChatRoutes = ({ friends, route }) => {
@@ -19,10 +31,12 @@ const ChatRoutes = ({ friends, route }) => {
 		<div className={classes.root}>
 			<Switch>
 				<Route path={route + '/'}>
-					<div></div>
+					<div className={classes.wallPaper}>
+                        <Typography className={classes.message}>Select Chat to start Messaging</Typography>
+                    </div>
 				</Route>
 				<Route path={route + '/:friendID'}>
-					<Messages></Messages>
+					<ChatBox></ChatBox>
 				</Route>
 			</Switch>
 		</div>

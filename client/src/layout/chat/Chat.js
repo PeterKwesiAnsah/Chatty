@@ -21,6 +21,7 @@ const Chat = () => {
 		<div className={classes.root}>
 			<SideView></SideView>
 			<ChatRoutes route={match.url}></ChatRoutes>
+
 		</div>
 	);
 };

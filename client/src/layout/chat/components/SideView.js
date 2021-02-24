@@ -1,16 +1,17 @@
-import React from 'react'
-
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+const useStyles = makeStyles((theme) => ({
+	root: {
+		width: '35%',
+		height: '100%',
+	},
+}));
 
 const SideView = () => {
-//get friends query
+	const classes = useStyles();
+	//get friends query
 
-    return (
-        <div>
+	return <div className={classes.root}></div>;
+};
 
-            
-            
-        </div>
-    )
-}
-
-export default SideView
+export default SideView;

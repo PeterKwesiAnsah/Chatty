@@ -8,7 +8,7 @@ import LoginView from './layout/LoginView';
 import ShareView from './layout/ShareView';
 import { ApolloProvider } from '@apollo/client';
 import client from './client';
-// import ChatV;     
+import ChatView from './layout/chat/Chat'    
 
 function App() {
 	return (
@@ -18,7 +18,7 @@ function App() {
 				<Router>
 					<Switch>
 						<Route path="/chat">
-							{/* <ChatView></ChatView> */}
+							<ChatView></ChatView>
 						</Route>
 						<Route path="/share">
 							<ShareView></ShareView>

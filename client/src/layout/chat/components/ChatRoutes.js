@@ -35,7 +35,7 @@ const ChatRoutes = ({ friends, route }) => {
                         <Typography className={classes.message}>Select Chat to start Messaging</Typography>
                     </div>
 				</Route>
-				<Route path={route + '/:friendID'}>
+				<Route path={route + '/:userID/:friendID'}>
 					<ChatBox></ChatBox>
 				</Route>
 			</Switch>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { useRouteMatch } from 'react-router-dom';
 import ChatRoutes from './components/ChatRoutes';
 import SideView from './components/SideView';
+import chatTheme from '../../theme/chatTheme'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,11 +20,12 @@ const Chat = () => {
 	//route match of parent route
 	const match = useRouteMatch();
 	return (
-		<div className={classes.root}>
-			<SideView></SideView>
-			<ChatRoutes route={match.url}></ChatRoutes>
-
-		</div>
+		<ThemeProvider theme={chatTheme}>
+			<div className={classes.root}>
+				<SideView></SideView>
+				<ChatRoutes route={match.url}></ChatRoutes>
+			</div>
+		</ThemeProvider>
 	);
 };
 

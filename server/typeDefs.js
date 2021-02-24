@@ -75,7 +75,7 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-		newMessage: Message!
+		newMessages: [Message]
 		newSignUp: AuthUser!
 	}
 `;

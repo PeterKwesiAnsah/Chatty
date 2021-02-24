@@ -40,7 +40,7 @@ module.exports = {
 			};
 		},
 
-		signIn: async (_, { input }, { user: loginUser, createToken, models }) => {
+		signIn: async (_, { input }, {createToken, models }) => {
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
 			if (user) {
@@ -60,7 +60,7 @@ module.exports = {
 
 			throw new Error('Email or Password is Incorrect');
 		},
-		createMessage: (_, { input }, { user, models }) => {
+		createMessage: async(_, { input }, { user, models }) => {
 			const { receiverID, content } = input;
 
 			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
@@ -70,13 +70,25 @@ module.exports = {
 				content,
 			};
 
-			pubsub.publish(NEW_MESSAGE, { newMessage: message });
+			// pubsub.publish(NEW_MESSAGE, { newMessages: message });
 
 			//save a message
-			models.Message.create({
+			await models.Message.create({
 				messageID: user._id + '.' + receiverID,
 				content,
 			});
+			const messages = await models.Message.find({
+				$or: [
+					{ messageID: user._id + '.' + receiverID },
+					{ messageID: receiverID + '.' + user._id },
+				],
+			});     
+
+			pubsub.publish(NEW_MESSAGE, { newMessages: messages });
+			
+
+
+
 			return message;
 		},
 		updateSettings: async (_, { input }, { user, models }) => {
@@ -122,7 +134,7 @@ module.exports = {
 	},
 
 	Subscription: {
-		newMessage: {
+		newMessages: {
 			subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
 		},
 		newSignUp: {

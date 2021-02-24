@@ -1,8 +1,9 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
-import ChatBox from './ChatBox';
+
 import { makeStyles,Typography } from '@material-ui/core';
 import wallPaperFour from '../../../assets/wallPaperFour.jpg';
+import Container from './Container'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,13 +31,13 @@ const ChatRoutes = ({ friends, route }) => {
 	return (
 		<div className={classes.root}>
 			<Switch>
-				<Route path={route + '/'}>
+				<Route path={route + '/'} exact>
 					<div className={classes.wallPaper}>
                         <Typography className={classes.message}>Select Chat to start Messaging</Typography>
                     </div>
 				</Route>
-				<Route path={route + '/:userID/:friendID'}>
-					<ChatBox></ChatBox>
+				<Route path={route + '/:friendID'}>
+					<Container wallPaper={wallPaperFour}></Container>
 				</Route>
 			</Switch>
 		</div>

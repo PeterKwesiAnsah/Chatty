@@ -102,6 +102,8 @@ const Share = () => {
 		const { invitedBy } = newSignUpData.newSignUp.user;
 		if (invitedBy === data.me.id) {
 			console.log('you have a new signUp');
+
+			
 			history.push('/chat');
 		}
 	}

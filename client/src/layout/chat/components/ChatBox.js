@@ -1,9 +1,9 @@
-import React,{memo} from 'react';
+import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
-		height: '93%',
+		height: '90%',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: '50%',
 		backgroundSize: 'cover',
@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatBox = ({ wallPaper }) => {
 	const classes = useStyles();
+
+	console.log('why');
 
 	//subscription
 	return (

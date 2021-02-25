@@ -7,15 +7,15 @@ import { useTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
-		backgroundColor: '#2F3135',
+		backgroundColor: theme.palette.secondary.dark,
 		padding: theme.spacing(0.2),
+		height:'10%',
         color:theme.palette.common.white
 	},
 }));
 
 const Navbar = () => {
 	const classes = useStyles();
-    console.log(useTheme())
 	return (
 		<div className={classes.root}>
 			<IconButton color="inherit">

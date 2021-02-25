@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	btn: {
 		textTransform: 'none',
-		marginLeft: theme.spacing(3),
 		marginTop:theme.spacing(2),
 		color: 'inherit',
 		borderRadius: theme.spacing(3),

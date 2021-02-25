@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         placeItems:'center'
 	},
     message:{
-        backgroundColor:'#424242',
+        backgroundColor:theme.palette.secondary.dark,
         padding:theme.spacing(0.5),
         borderRadius:theme.spacing(1)
     }

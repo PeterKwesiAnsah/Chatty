@@ -46,6 +46,7 @@ module.exports = {
 			if (user) {
 				//check to see if password and hashed password exist
 				const match = await bcrypt.compare(password, user.password);
+
 				if (match) {
 					//create token
 					const token = createToken(user);

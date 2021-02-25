@@ -7,7 +7,7 @@ import Container from './Container'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '65%',
+		width: '70%',
 		height: '100%',
 	},
 	wallPaper: {

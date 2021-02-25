@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Skeleton from '@material-ui/lab/Skeleton';
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '35%',
+		width: '30%',
 		height: '100%',
 	},
 	friendsBar: {
@@ -37,10 +37,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SideView = () => {
+const SideView = ({ route }) => {
 	//listen for new sgnUps
 	const classes = useStyles();
-	// const {loading,data,error}=useQuery()
 
 	const skeleton = (
 		<>
@@ -97,6 +96,7 @@ const SideView = () => {
 	const GET_FRIENDS = gql`
 		query getFriends {
 			me {
+				id
 				friends {
 					id
 					email
@@ -107,16 +107,27 @@ const SideView = () => {
 
 	//get friends query
 
-	const friend = {
-		id: '6019cd76444a503194234438',
-		email: 'ansahPeter123@gmail.com',
-	};
+	const { loading, data, error } = useQuery(GET_FRIENDS);
+
+	// const friend = {
+	// 	id: '6019cd76444a503194234438',
+	// 	email: 'ansahPeter123@gmail.com',
+	// };
 
 	return (
 		<div className={classes.root}>
 			<NavBar></NavBar>
 			<div className={classes.friendsBar}>
-				<Friend friend={friend}></Friend>
+				{loading
+					? skeleton
+					: data.me.friends &&
+					  data.me.friends.map((friend) => (
+							<>
+								<Link to={route + '/' + friend.id}>
+									<Friend friend={friend}></Friend>
+								</Link>
+							</>
+					  ))}
 			</div>
 		</div>
 	);

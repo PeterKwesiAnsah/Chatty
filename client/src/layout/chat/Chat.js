@@ -22,7 +22,7 @@ const Chat = () => {
 	return (
 		<ThemeProvider theme={chatTheme}>
 			<div className={classes.root}>
-				<SideView></SideView>
+				<SideView route={match.url}></SideView>
 				<ChatRoutes route={match.url}></ChatRoutes>
 			</div>
 		</ThemeProvider>

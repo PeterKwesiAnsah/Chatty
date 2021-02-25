@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) =>
 			},
 			a: {
 				textDecoration: 'none',
+				color:'inherit'
 			},
 			li: {
 				listStyle: 'none',

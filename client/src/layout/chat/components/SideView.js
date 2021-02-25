@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 	friendsBar: {
 		width: '100%',
 		height: '90%',
+		backgroundColor: theme.palette.primary.dark,
 	},
 	skeleton: {
 		backgroundColor: theme.palette.secondary.dark,
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	skeletonRoot: {
 		display: 'flex',
-		padding: theme.spacing(2.5, 1),
+		padding: theme.spacing(2, 3),
 		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'space-evenly',
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const SideView = () => {
 	//listen for new sgnUps
 	const classes = useStyles();
+	// const {loading,data,error}=useQuery()
 
 	const skeleton = (
 		<>
@@ -58,11 +60,11 @@ const SideView = () => {
 						width={120}
 						style={{ marginBottom: '8px' }}
 					/>
-					<Skeleton
+					{/* <Skeleton
 						variant="text"
 						animation="wave"
 						className={classes.skeleton}
-					/>
+					/> */}
 				</div>
 			</div>
 			<div className={classes.skeletonRoot}>
@@ -81,11 +83,11 @@ const SideView = () => {
 						width={120}
 						style={{ marginBottom: '8px' }}
 					/>
-					<Skeleton
+					{/* <Skeleton
 						variant="text"
 						animation="wave"
 						className={classes.skeleton}
-					/>
+					/> */}
 				</div>
 			</div>
 		</>
@@ -105,10 +107,17 @@ const SideView = () => {
 
 	//get friends query
 
+	const friend = {
+		id: '6019cd76444a503194234438',
+		email: 'ansahPeter123@gmail.com',
+	};
+
 	return (
 		<div className={classes.root}>
 			<NavBar></NavBar>
-			<div className={classes.friendsBar}>{skeleton}</div>
+			<div className={classes.friendsBar}>
+				<Friend friend={friend}></Friend>
+			</div>
 		</div>
 	);
 };

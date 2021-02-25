@@ -5,7 +5,7 @@ const { PubSub } = require('apollo-server');
 const pubsub = new PubSub();
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
-const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';  
+const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';
 
 module.exports = {
 	Mutation: {
@@ -40,7 +40,7 @@ module.exports = {
 			};
 		},
 
-		signIn: async (_, { input }, {createToken, models }) => {
+		signIn: async (_, { input }, { createToken, models }) => {
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
 			if (user) {
@@ -61,7 +61,7 @@ module.exports = {
 
 			throw new Error('Email or Password is Incorrect');
 		},
-		createMessage: async(_, { input }, { user, models }) => {
+		createMessage: async (_, { input }, { user, models }) => {
 			const { receiverID, content } = input;
 
 			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
@@ -83,12 +83,9 @@ module.exports = {
 					{ messageID: user._id + '.' + receiverID },
 					{ messageID: receiverID + '.' + user._id },
 				],
-			});     
+			});
 
 			pubsub.publish(NEW_MESSAGE, { newMessages: messages });
-			
-
-
 
 			return message;
 		},
@@ -117,7 +114,32 @@ module.exports = {
 		settings: async (_, __, { user, models }) => {
 			return await models.Settings.findOne({ userID: user.id });
 		},
-		me:(_,__,{user})=>user
+		me: (_, __, { user }) => user,
+		unRead: async (_, __, { user, models }) => {
+			let messages = [];
+			const { id, invitedBy } = user;
+			const get_Friends = async () => {
+				const friends = await models.User.find({ invitedBy: id });
+				if (invitedBy !== 'NoInvite') {
+					const friend = await models.User.findById(invitedBy);
+					return [...friends, friend];
+				}
+				return [...friends];
+			};
+			if (user) {
+				const friends = await get_Friends();
+				let messages = await friends.map(async ({ id: friendID }) => {
+					return await models.Message.find({
+						messageID: friendID + '.' + id,
+						read: false,
+					});
+					// console.log(message)
+				});
+				messages = await Promise.all(messages);
+				return messages[0];
+			}
+			return [];
+		},
 	},
 
 	User: {

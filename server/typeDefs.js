@@ -11,7 +11,8 @@ const typeDefs = gql`
 		id: ID!
 		email: String!
 		friends: [User]
-		invitedBy: String
+		invitedBy: String,
+		
 	}
 
 	type Message {
@@ -44,7 +45,9 @@ const typeDefs = gql`
 	type Query {
 		me: User!
 		messages(receiverID: String): [Message]
-		settings:Settings!
+		settings:Settings!,
+		unRead:[Message]
+		
 	}
 
 	type AuthUser {

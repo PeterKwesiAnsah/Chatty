@@ -11,6 +11,13 @@ const message=new mongoose.Schema({
         required:true,
         default:' '
     }
+    ,
+    read:{
+        type:Boolean,
+        default:false,
+        required:true
+
+    }
 },{timestamps:true})
 
 const Message=mongoose.model('message',message)

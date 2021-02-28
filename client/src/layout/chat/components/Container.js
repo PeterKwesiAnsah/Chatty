@@ -66,8 +66,8 @@ const Container = ({ wallPaper }) => {
 					placeholder="Type your message here "
 				></input>
 				{message && (
-					<IconButton color="secondary" >
-						<NearMeIcon fontSize="large" onClick={handleClick}></NearMeIcon>
+					<IconButton color="secondary" onClick={handleClick}>
+						<NearMeIcon fontSize="large" ></NearMeIcon>
 					</IconButton>
 				)}
 			</div>

@@ -68,24 +68,22 @@ module.exports = {
 
 			const message = {
 				messageID: user._id + '.' + receiverID,
+				read:false,
 				content,
 			};
 
 			// pubsub.publish(NEW_MESSAGE, { newMessages: message });
 
 			//save a message
-			await models.Message.create({
-				messageID: user._id + '.' + receiverID,
-				content,
-			});
-			const messages = await models.Message.find({
-				$or: [
-					{ messageID: user._id + '.' + receiverID },
-					{ messageID: receiverID + '.' + user._id },
-				],
-			});
+			 models.Message.create(message);
+			// const messages = await models.Message.find({
+			// 	$or: [
+			// 		{ messageID: user._id + '.' + receiverID },
+			// 		{ messageID: receiverID + '.' + user._id },
+			// 	],
+			// });
 
-			pubsub.publish(NEW_MESSAGE, { newMessages: messages });
+			pubsub.publish(NEW_MESSAGE, { newMessages: message });
 
 			return message;
 		},
@@ -128,7 +126,7 @@ module.exports = {
 			};
 			if (user) {
 				const friends = await get_Friends();
-				let messages = await friends.map(async ({ id: friendID }) => {
+				let messages = friends.map(async ({ id: friendID }) => {
 					return await models.Message.find({
 						messageID: friendID + '.' + id,
 						read: false,

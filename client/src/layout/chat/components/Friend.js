@@ -4,10 +4,8 @@ import { useLocation } from 'react-router-dom';
 
 const Friend = ({ friend }) => {
 	const { pathname } = useLocation();
-
 	//getting id,email
 	const { id, email } = friend;
-
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			display: 'flex',
@@ -17,7 +15,7 @@ const Friend = ({ friend }) => {
 
 			// width: '100%',
 			'&:hover': {
-				backgroundColor: theme.palette.secondary.main,
+				backgroundColor:"#585a5d85",
 			},
 			// transition:'all 5s',
 			// backgroundColor:theme.palette.primary.dark
@@ -44,7 +42,7 @@ const Friend = ({ friend }) => {
 		},
 	}));
 	const classes = useStyles();
-
+														
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
 

@@ -43,5 +43,4 @@ const ChatRoutes = ({ friends, route }) => {
 		</div>
 	);
 };
-
 export default ChatRoutes;

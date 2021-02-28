@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 const ChatBox = ({ wallPaper }) => {
 	const classes = useStyles();
 
-	console.log('why');
+	// console.log('why');
 
 	//subscription
 	return (

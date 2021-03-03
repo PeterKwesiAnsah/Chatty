@@ -168,7 +168,7 @@ const SignUpView = () => {
 		<>
 			<div className={classes.box}>
 				<div className={classes.imgBox}>
-					<Typography variant="h4">Just Send an Invite!.</Typography>
+					<Typography variant="h4">Just Send and Invite!.</Typography>
 				</div>
 				<div className={classes.signUp}>
 					<NavBar></NavBar>
@@ -176,7 +176,7 @@ const SignUpView = () => {
 						<Typography variant="h4">
 							Sign Up!, with{' '}
 							<Typography variant="h4" color="secondary" display="inline">
-								Chatty.
+								Schooly.
 							</Typography>
 						</Typography>
 					</div>

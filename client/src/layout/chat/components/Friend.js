@@ -12,7 +12,6 @@ const Friend = ({ friend }) => {
 			padding: theme.spacing(2.5, 1.5),
 			backgroundColor:
 				pathname === `/chat/${id}` ? theme.palette.primary.main : 'transparent',
-
 			// width: '100%',
 			'&:hover': {
 				backgroundColor:"#585a5d85",

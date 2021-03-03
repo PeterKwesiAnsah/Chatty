@@ -17,8 +17,9 @@ const message=new mongoose.Schema({
         default:false,
         required:true
 
-    }
-},{timestamps:true})
+    },
+
+},{timestamps:{currentTime:()=>new Date().toISOString()}})
 
 const Message=mongoose.model('message',message)
 

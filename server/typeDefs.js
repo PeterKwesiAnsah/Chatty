@@ -16,9 +16,12 @@ const typeDefs = gql`
 	}
 
 	type Message {
+		id:ID!
 		messageID: String!
 		content: String!
 		read:Boolean
+		createdAt:String!
+		updatedAt:String!
 	}
 
 	type Invite {

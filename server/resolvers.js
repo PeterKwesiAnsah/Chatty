@@ -66,7 +66,7 @@ module.exports = {
 
 			///a subscription can be placed here to get 20 messages from the userD/reciever ID combo
 
-			const message = {
+			let message = {
 				messageID: user._id + '.' + receiverID,
 				read:false,
 				content,
@@ -75,7 +75,7 @@ module.exports = {
 			// pubsub.publish(NEW_MESSAGE, { newMessages: message });
 
 			//save a message
-			 models.Message.create(message);
+			message=await models.Message.create(message);
 			// const messages = await models.Message.find({
 			// 	$or: [
 			// 		{ messageID: user._id + '.' + receiverID },

@@ -7,3 +7,11 @@ const messages = createSlice({
 });
 
 export default messages.reducer;
+
+
+/*
+
+mock data
+[{friendID:ID,messages:[message]]
+
+*/

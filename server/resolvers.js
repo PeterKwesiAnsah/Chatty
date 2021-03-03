@@ -81,9 +81,9 @@ module.exports = {
 			// 		{ messageID: user._id + '.' + receiverID },
 			// 		{ messageID: receiverID + '.' + user._id },
 			// 	],
-			// });
+			// });  
 
-			pubsub.publish(NEW_MESSAGE, { newMessages: message });
+			pubsub.publish(NEW_MESSAGE, { newMessage: message });
 
 			return message;
 		},
@@ -97,6 +97,11 @@ module.exports = {
 				}
 			);
 		},
+		updateMessage:async(_,{id},{models})=>{
+			
+			//find message document with such message id
+			return await models.messages.findByIdAndUpdate(id, {read:true},{new:true})  
+		}
 	},
 
 	Query: {
@@ -155,7 +160,7 @@ module.exports = {
 	},
 
 	Subscription: {
-		newMessages: {
+		newMessage: {
 			subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
 		},
 		newSignUp: {

@@ -72,6 +72,7 @@ const typeDefs = gql`
 		signUp(input: signUpInput!): AuthUser!
 		signIn(input: signinInput!): AuthUser!
 		createMessage(input: MessageInput!): Message!
+		updateMessage(id:ID!):Message!
 		updateSettings(input:SettingsInput):Settings!
 	}
 
@@ -82,7 +83,7 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-		newMessages: [Message]
+		newMessage:Message
 		newSignUp: AuthUser!
 	}
 `;

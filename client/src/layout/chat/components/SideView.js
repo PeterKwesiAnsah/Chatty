@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { makeStyles } from '@material-ui/core';
 import NavBar from './Navbar';
 import Friend from './Friend';
@@ -117,18 +117,18 @@ const SideView = ({ route }) => {
 	return (
 		<div className={classes.root}>
 			<NavBar></NavBar>
-			<div className={classes.friendsBar}>
-				{loading
-					? skeleton
-					: data.me.friends &&
-					  data.me.friends.map((friend) => (
-							<>
-								<Link to={route + '/' + friend.id}>
-									<Friend friend={friend} ></Friend>
+			<Fragment>
+				<div className={classes.friendsBar}>
+					{loading
+						? skeleton
+						: data.me.friends &&
+						  data.me.friends.map((friend) => (
+								<Link to={route + '/' + friend.id} key={friend.id}>
+									<Friend friend={friend}></Friend>
 								</Link>
-							</>
-					  ))}
-			</div>
+						  ))}
+				</div>
+			</Fragment>
 		</div>
 	);
 };

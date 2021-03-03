@@ -37,7 +37,7 @@ const Friend = ({ friend }) => {
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			display: 'flex',
-			padding: theme.spacing(2.5, 1.5),
+			padding: theme.spacing(1.5, 1.5),
 			backgroundColor:
 				pathname === `/chat/${id}` ? theme.palette.primary.main : 'transparent',
 			// width: '100%',
@@ -58,17 +58,25 @@ const Friend = ({ friend }) => {
 			// // backgroundColor:theme.palette.primary.main,
 			// padding:theme.spacing(0.2,1),
 			// borderRadius:theme.spacing(0.5),
-			marginLeft: theme.spacing(2),
 			fontWeight: '600',
 		},
 		chatInfo: {
 			width: '100%',
-			padding: theme.spacing(0.3, 0),
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'space-between',
+			padding: theme.spacing(1.5),
+
 			// borderTop: `0.05px solid ${theme.palette.secondary.light}`,
 			// borderBottom: `0.05px solid ${theme.palette.secondary.light}`,
 		},
+		chatDescription: {
+			fontSize: theme.spacing(1.8),
+			color: theme.palette.secondary.light,
+		},
 	}));
 	const classes = useStyles();
+	console.log(lastMessage, unReadMessages);
 
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
@@ -82,6 +90,13 @@ const Friend = ({ friend }) => {
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
 				<Typography className={classes.text}>{username}</Typography>
+				{!(unReadMessages && lastMessage) ? (
+					<Typography variant="subtitle1" className={classes.chatDescription}>
+						You have sent or received no messages
+					</Typography>
+				) : (
+					<Typography></Typography>
+				)}
 			</div>
 		</div>
 	);

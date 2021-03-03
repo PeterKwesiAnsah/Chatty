@@ -59,11 +59,11 @@ const SideView = ({ route }) => {
 						width={120}
 						style={{ marginBottom: '8px' }}
 					/>
-					{/* <Skeleton
+					<Skeleton
 						variant="text"
 						animation="wave"
 						className={classes.skeleton}
-					/> */}
+					/>
 				</div>
 			</div>
 			<div className={classes.skeletonRoot}>
@@ -82,11 +82,11 @@ const SideView = ({ route }) => {
 						width={120}
 						style={{ marginBottom: '8px' }}
 					/>
-					{/* <Skeleton
+					<Skeleton
 						variant="text"
 						animation="wave"
 						className={classes.skeleton}
-					/> */}
+					/>
 				</div>
 			</div>
 		</>
@@ -124,7 +124,7 @@ const SideView = ({ route }) => {
 					  data.me.friends.map((friend) => (
 							<>
 								<Link to={route + '/' + friend.id}>
-									<Friend friend={friend}></Friend>
+									<Friend friend={friend} ></Friend>
 								</Link>
 							</>
 					  ))}

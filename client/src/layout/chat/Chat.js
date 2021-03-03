@@ -17,6 +17,8 @@ const useStyles = makeStyles((theme) => ({
 const Chat = () => {
 	const classes = useStyles();
 
+	//listen to subscriptions here 
+
 	//route match of parent route
 	const match = useRouteMatch();
 	return (

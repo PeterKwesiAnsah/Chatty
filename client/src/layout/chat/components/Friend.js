@@ -1,11 +1,39 @@
 import React from 'react';
 import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Friend = ({ friend }) => {
 	const { pathname } = useLocation();
 	//getting id,email
 	const { id, email } = friend;
+
+	//getUnreadMessages && last Message from Messages
+	//if unreadMessages exist..render the last message and it count
+	const unReadMessages = useSelector((state) => {
+		const unReadMessagesObj = state.unReadMessages.find(
+			({ friendId }) => id === friendId
+		);
+		if (unReadMessagesObj) {
+			const { friendId, messages } = unReadMessagesObj;
+			return {
+				friendId,
+				message: messages[messages.length - 1],
+				count: messages.length,
+			};
+		}
+		return null;
+	});
+
+	const lastMessage = useSelector((state) => {
+		const messagesObj = state.messages.find(({ friendId }) => id === friendId);
+		if (messagesObj) {
+			const { messages } = messagesObj;
+			return messages[messages.length - 1];
+		}
+		return null;
+	});
+
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			display: 'flex',
@@ -14,7 +42,7 @@ const Friend = ({ friend }) => {
 				pathname === `/chat/${id}` ? theme.palette.primary.main : 'transparent',
 			// width: '100%',
 			'&:hover': {
-				backgroundColor:"#585a5d85",
+				backgroundColor: '#585a5d85',
 			},
 			// transition:'all 5s',
 			// backgroundColor:theme.palette.primary.dark
@@ -41,12 +69,16 @@ const Friend = ({ friend }) => {
 		},
 	}));
 	const classes = useStyles();
-														
+
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
 
+	const handleRoutesChange = () => {
+		//dispatch actions here both to store.messages and store.unReadMessages
+	};
+
 	return (
-		<div className={classes.root}>
+		<div className={classes.root} onClick={handleRoutesChange}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
 				<Typography className={classes.text}>{username}</Typography>

@@ -5,10 +5,11 @@ import { useRouteMatch } from 'react-router-dom';
 import ChatRoutes from './components/ChatRoutes';
 import SideView from './components/SideView';
 import chatTheme from '../../theme/chatTheme';
-import { useSubscription, gql } from '@apollo/client';
+import { useSubscription, gql, useMutation } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUnReadMessage } from '../../slices/unRead';
+import { addMessage } from '../../slices/messages';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,11 +34,20 @@ const Chat = () => {
 			}
 		}
 	`;
+
+	const UPDATE_MESSAGE = gql`
+		mutation updateMessage($messageID: String!) {
+			updateMessage(id: $messageID) {
+				read
+			}
+		}
+	`;
 	//route match of parent route
 	const match = useRouteMatch();
 	const { data: message } = useSubscription(NEW_MESSAGE);
 	const { pathname } = useLocation();
 	const unReadMessages = useSelector((state) => state.unReadMessages);
+	const [updateMessage] = useMutation(UPDATE_MESSAGE);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -57,7 +67,12 @@ const Chat = () => {
 				//if it is
 				else {
 					//update the Message store
+					message.read = true;
+					//triggerdispatch
+					dispatch(addMessage({ sender, message: message.newMessage }));
+
 					//update the read to true in database
+					updateMessage({ variables: { messageID: id } });
 				}
 			}
 		}

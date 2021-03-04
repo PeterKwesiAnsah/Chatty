@@ -1,13 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const messages = createSlice({
+const messagesSlice = createSlice({
 	name: 'messages',
 	initialState: [],
-	reducers: {},
+	reducers: {
+		addMessage: (state, action) => {
+			const { sender, message } = action.payload;
+			const messagesObj = state.find(({ friendID }) => friendID === sender);
+			if (messagesObj) {
+				//if a friend exists
+				messagesObj.messages.push(message);
+			} else {
+				const messages = [];
+				messages.push(message);
+				state.push({ friendID: sender, messages });
+			}
+		},
+	},
 });
 
-export default messages.reducer;
+export const {addMessage} =messagesSlice.actions
 
+export default messagesSlice.reducer;
 
 /*
 

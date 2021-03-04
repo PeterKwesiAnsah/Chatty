@@ -51,6 +51,10 @@ const typeDefs = gql`
 		messages(receiverID: String): [Message]
 		settings:Settings!,
 		unRead:[Message]
+
+		# messages(receiverID: String): [FriendMessages]
+
+		# unRead:[FriendMessages]
 		
 	}
 
@@ -85,6 +89,10 @@ const typeDefs = gql`
 	type Subscription {
 		newMessage:Message
 		newSignUp: AuthUser!
+	}
+	type FriendMessages{
+		friendID:String!
+		messages:[Message]
 	}
 `;
 

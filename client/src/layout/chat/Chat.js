@@ -35,7 +35,7 @@ const Chat = () => {
 	`;
 	//route match of parent route
 	const match = useRouteMatch();
-	const { loading, data: message, error } = useSubscription(NEW_MESSAGE);
+	const { data: message } = useSubscription(NEW_MESSAGE);
 	const { pathname } = useLocation();
 	const unReadMessages = useSelector((state) => state.unReadMessages);
 	const dispatch = useDispatch();
@@ -50,7 +50,7 @@ const Chat = () => {
 
 			if (receiver === '6019cd76444a503194234438') {
 				//user not present in sender's route....add message to unRead
-				if (pathname !== `chat/${sender}`) {
+				if (pathname !== `/chat/${sender}`) {
 					//update the unReadMessagesStore
 					dispatch(addUnReadMessage({ sender, message: message.newMessage }));
 				}

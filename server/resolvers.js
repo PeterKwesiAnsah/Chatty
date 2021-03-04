@@ -43,6 +43,7 @@ module.exports = {
 		signIn: async (_, { input }, { createToken, models }) => {
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
+			console.log(createToken(user))  
 			if (user) {
 				//check to see if password and hashed password exist
 				const match = await bcrypt.compare(password, user.password);
@@ -79,7 +80,7 @@ module.exports = {
 			// const messages = await models.Message.find({
 			// 	$or: [
 			// 		{ messageID: user._id + '.' + receiverID },
-			// 		{ messageID: receiverID + '.' + user._id },
+			// 		{ messageID: receiverID + '.' + user._id ,read:true},
 			// 	],
 			// });  
 
@@ -98,7 +99,6 @@ module.exports = {
 			);
 		},
 		updateMessage:async(_,{id},{models})=>{
-			
 			//find message document with such message id
 			return await models.messages.findByIdAndUpdate(id, {read:true},{new:true})  
 		}

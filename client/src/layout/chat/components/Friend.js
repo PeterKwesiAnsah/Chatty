@@ -12,21 +12,27 @@ const Friend = ({ friend }) => {
 	//if unreadMessages exist..render the last message and it count
 	const unReadMessages = useSelector((state) => {
 		const unReadMessagesObj = state.unReadMessages.find(
-			({ friendId }) => id === friendId
+			({ friendID }) => id === friendID
 		);
 		if (unReadMessagesObj) {
-			const { friendId, messages } = unReadMessagesObj;
+			const { friendID, messages } = unReadMessagesObj;
 			return {
-				friendId,
+				friendID,
 				message: messages[messages.length - 1],
 				count: messages.length,
 			};
 		}
 		return null;
 	});
+	// const unReadMessages = {
+	// 	count: 2,
+	// 	message: {
+	// 		content: 'how are you',
+	// 	},
+	// };
 
 	const lastMessage = useSelector((state) => {
-		const messagesObj = state.messages.find(({ friendId }) => id === friendId);
+		const messagesObj = state.messages.find(({ friendID }) => id === friendID);
 		if (messagesObj) {
 			const { messages } = messagesObj;
 			return messages[messages.length - 1];
@@ -70,9 +76,30 @@ const Friend = ({ friend }) => {
 			// borderTop: `0.05px solid ${theme.palette.secondary.light}`,
 			// borderBottom: `0.05px solid ${theme.palette.secondary.light}`,
 		},
-		chatDescription: {
+		chatCount: {
+			backgroundColor: theme.palette.primary.light,
+			borderRadius: '50%',
+			height: theme.spacing(2.8),
+			width: theme.spacing(2.8),
+			textAlign: 'center',
+			display: 'flex',
+			alignItems: 'center',
+			justifyContent: 'center',
 			fontSize: theme.spacing(1.8),
+			// padding: theme.spacing(1),
+		},
+
+		chatDescription: {
+			fontSize: theme.spacing(1.7),
 			color: theme.palette.secondary.light,
+		},
+		chat: {
+			display: 'flex',
+			alignItems: 'center',
+			'& > *': {
+				marginRight: theme.spacing(0.5),
+			},
+			// justifyContent: 'center',
 		},
 	}));
 	const classes = useStyles();
@@ -89,11 +116,24 @@ const Friend = ({ friend }) => {
 		<div className={classes.root} onClick={handleRoutesChange}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
-				<Typography className={classes.text}>{username}</Typography>
-				{!(unReadMessages && lastMessage) ? (
+				<Typography variant="subtitle2" className={classes.text}>{username}</Typography>
+				{!(unReadMessages || lastMessage) ? (
 					<Typography variant="subtitle1" className={classes.chatDescription}>
 						You have sent or received no messages
 					</Typography>
+				) : unReadMessages ? (
+					<div className={classes.chat}>
+						<Typography variant="subtitle2" style={{ color: '#fff' }} className>
+							{letters.toUpperCase()}
+						</Typography>
+						<Typography variant="subtitle1" className={classes.chatDescription}>
+							:{unReadMessages.message.content}
+						</Typography>
+
+						<Typography variant="h6" className={classes.chatCount}>
+							{unReadMessages.count}
+						</Typography>
+					</div>
 				) : (
 					<Typography></Typography>
 				)}

@@ -76,7 +76,7 @@ const typeDefs = gql`
 		signUp(input: signUpInput!): AuthUser!
 		signIn(input: signinInput!): AuthUser!
 		createMessage(input: MessageInput!): Message!
-		updateMessage(id:ID!):Message!
+		updateMessage(messageID:String!):Message!
 		updateSettings(input:SettingsInput):Settings!
 	}
 

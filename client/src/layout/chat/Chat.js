@@ -37,7 +37,7 @@ const Chat = () => {
 
 	const UPDATE_MESSAGE = gql`
 		mutation updateMessage($messageID: String!) {
-			updateMessage(id: $messageID) {
+			updateMessage(messageID: $messageID) {
 				read
 			}
 		}
@@ -49,6 +49,7 @@ const Chat = () => {
 	const unReadMessages = useSelector((state) => state.unReadMessages);
 	const [updateMessage] = useMutation(UPDATE_MESSAGE);
 	const dispatch = useDispatch();
+	console.log(pathname);
 
 	useEffect(() => {
 		if (message) {
@@ -64,14 +65,15 @@ const Chat = () => {
 					//update the unReadMessagesStore
 					dispatch(addUnReadMessage({ sender, message: message.newMessage }));
 				}
-				//if it is
-				else {
+
+				if (pathname === `/chat/${sender}`) {
+					// console.log('hgghsaas');
 					//update the Message store
-					message.read = true;
+					message.newMessage.read = true;
 					//triggerdispatch
 					dispatch(addMessage({ sender, message: message.newMessage }));
 
-					//update the read to true in database
+					// // update the read to true in database
 					updateMessage({ variables: { messageID: id } });
 				}
 			}

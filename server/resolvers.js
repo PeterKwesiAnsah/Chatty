@@ -43,7 +43,7 @@ module.exports = {
 		signIn: async (_, { input }, { createToken, models }) => {
 			const { email, password } = input;
 			const user = await models.User.findOne({ email });
-			console.log(createToken(user))  
+			console.log(createToken(user));
 			if (user) {
 				//check to see if password and hashed password exist
 				const match = await bcrypt.compare(password, user.password);
@@ -69,20 +69,20 @@ module.exports = {
 
 			let message = {
 				messageID: user._id + '.' + receiverID,
-				read:false,
+				read: false,
 				content,
 			};
 
 			// pubsub.publish(NEW_MESSAGE, { newMessages: message });
 
 			//save a message
-			message=await models.Message.create(message);
+			message = await models.Message.create(message);
 			// const messages = await models.Message.find({
 			// 	$or: [
 			// 		{ messageID: user._id + '.' + receiverID },
 			// 		{ messageID: receiverID + '.' + user._id ,read:true},
 			// 	],
-			// });  
+			// });
 
 			pubsub.publish(NEW_MESSAGE, { newMessage: message });
 
@@ -98,10 +98,14 @@ module.exports = {
 				}
 			);
 		},
-		updateMessage:async(_,{id},{models})=>{
+		updateMessage: async (_, { messageID }, { models }) => {
 			//find message document with such message id
-			return await models.messages.findByIdAndUpdate(id, {read:true},{new:true})  
-		}
+			return await models.Message.findByIdAndUpdate(
+				messageID,
+				{ read: true },
+				{ new: true }
+			);
+		},
 	},
 
 	Query: {

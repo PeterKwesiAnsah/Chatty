@@ -128,7 +128,7 @@ const Friend = ({ friend }) => {
 					</Typography>
 				) : unReadMessages ? (
 					<div className={classes.chat}>
-						<Typography variant="subtitle2" style={{ color: '#fff' }} className>
+						<Typography variant="subtitle2" style={{ color: '#fff' }} >
 							{letters.toUpperCase()}
 						</Typography>
 						<Typography variant="subtitle1" className={classes.chatDescription}>
@@ -143,7 +143,7 @@ const Friend = ({ friend }) => {
 					// <Typography></Typography>
 					<div className={classes.chat}>
 						<Typography variant="subtitle2" style={{ color: '#fff' }} className>
-							{lastMessage?.messageID === `${userID}.id`
+							{lastMessage?.messageID === `${userID}.${id}`
 								? 'You'
 								: letters.toUpperCase()}
 						</Typography>

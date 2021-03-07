@@ -5,7 +5,7 @@ const Message = ({ message, userID, receiverID }) => {
 	const { messageID } = message;
 	const useStyles = makeStyles((theme) => ({
 		root: {
-			padding: theme.spacing(2,4),
+			padding: theme.spacing(4),
 			width: '100%',
 			display: 'flex',
 			justifyContent:
@@ -16,8 +16,8 @@ const Message = ({ message, userID, receiverID }) => {
 				messageID === `${userID}.${receiverID}`
 					? theme.palette.primary.main
 					: theme.palette.primary.light,
-			padding: theme.spacing(0.2,0.7),
-			borderRadius: theme.spacing(1.2),
+			padding: theme.spacing(0.05,1),
+			borderRadius: theme.spacing(1),
 			fontSize: theme.spacing(2),
 			color: theme.palette.common.white,
 		},

@@ -46,7 +46,8 @@ const CREATE_MESSAGE = gql`
 
 const Container = ({ wallPaper }) => {
 	const [message, setMessage] = useState('');
-	const [createMessage, { data }] = useMutation(CREATE_MESSAGE);
+	const [createMessage, { data, loading }] = useMutation(CREATE_MESSAGE);
+	//controls if a message is sent or not
 	const { pathname } = useLocation();
 	const classes = useStyles();
 	const receiverID = pathname.split('/')[2];
@@ -57,10 +58,20 @@ const Container = ({ wallPaper }) => {
 	//create an enter key event
 	const handleReturn = (e) => {
 		if (e.keyCode === 13) {
-			//enter is pressed...perform something
-			console.log('hfhjhjshjhjdashj');
-
 			if (message) {
+				//addmessage to state
+				dispatch(
+					addMessage({
+						sender: receiverID,
+						message: {
+							messageID: `${userID}.${receiverID}`,
+							content: message,
+							read: false,
+						},
+					})
+				);
+				setMessage('');
+
 				createMessage({
 					variables: {
 						message: { receiverID, content: message },
@@ -72,6 +83,18 @@ const Container = ({ wallPaper }) => {
 
 	const handleClick = () => {
 		if (message) {
+			//addmessage to state
+			dispatch(
+				addMessage({
+					sender: receiverID,
+					message: {
+						messageID: `${userID}.${receiverID}`,
+						content: message,
+						read: false,
+					},
+				})
+			);
+			setMessage('');
 			createMessage({
 				variables: {
 					message: { receiverID, content: message },
@@ -81,11 +104,11 @@ const Container = ({ wallPaper }) => {
 	};
 
 	useEffect(() => {
+		console.log(loading);
 		if (data) {
-			//addmessage to state
-			dispatch(addMessage({ sender: receiverID, message: data.createMessage }));
+			console.log('messageSent');
 		}
-	}, [data]);
+	}, [loading]);
 
 	//return key event
 	useEffect(() => {
@@ -96,11 +119,18 @@ const Container = ({ wallPaper }) => {
 		};
 	}, []);
 
+	/*
+loading:tru...view the placeholdermessage
 
+*/
 	//subscription
 	return (
 		<div className={classes.root}>
-			<ChatBox wallPaper={wallPaper} userID={userID} receiverID={receiverID}></ChatBox>
+			<ChatBox
+				wallPaper={wallPaper}
+				userID={userID}
+				receiverID={receiverID}
+			></ChatBox>
 			<div className={classes.textArea}>
 				<input
 					type="text"
@@ -115,7 +145,6 @@ const Container = ({ wallPaper }) => {
 					</IconButton>
 				)}
 			</div>
-
 		</div>
 	);
 };

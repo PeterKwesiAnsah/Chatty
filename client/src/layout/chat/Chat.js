@@ -49,6 +49,8 @@ const Chat = () => {
 	const unReadMessages = useSelector((state) => state.unReadMessages);
 	const [updateMessage] = useMutation(UPDATE_MESSAGE);
 	const dispatch = useDispatch();
+	const userID = useSelector((state) => state.user.userID);
+
 	console.log(pathname);
 
 	useEffect(() => {
@@ -59,7 +61,7 @@ const Chat = () => {
 			//get receiver and senderIDs
 			const [sender, receiver] = messageID.split('.');
 
-			if (receiver === '6019cd76444a503194234438') {
+			if (receiver === userID) {
 				//user not present in sender's route....add message to unRead
 				if (pathname !== `/chat/${sender}`) {
 					//update the unReadMessagesStore

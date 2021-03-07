@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import {addMessage} from '../../../slices/messages'
 
 const Friend = ({ friend }) => {
 	const { pathname } = useLocation();
@@ -24,6 +25,8 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
+
+	const userID = useSelector((state) => state.user.userID);
 	// const unReadMessages = {
 	// 	count: 2,
 	// 	message: {
@@ -90,7 +93,7 @@ const Friend = ({ friend }) => {
 		},
 
 		chatDescription: {
-			fontSize: theme.spacing(1.7),
+			fontSize: theme.spacing(2),
 			color: theme.palette.secondary.light,
 		},
 		chat: {
@@ -103,7 +106,7 @@ const Friend = ({ friend }) => {
 		},
 	}));
 	const classes = useStyles();
-	console.log(lastMessage, unReadMessages);
+	console.log(lastMessage);
 
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
@@ -116,7 +119,9 @@ const Friend = ({ friend }) => {
 		<div className={classes.root} onClick={handleRoutesChange}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
-				<Typography variant="subtitle2" className={classes.text}>{username}</Typography>
+				<Typography variant="subtitle2" className={classes.text}>
+					{username}
+				</Typography>
 				{!(unReadMessages || lastMessage) ? (
 					<Typography variant="subtitle1" className={classes.chatDescription}>
 						You have sent or received no messages
@@ -135,7 +140,21 @@ const Friend = ({ friend }) => {
 						</Typography>
 					</div>
 				) : (
-					<Typography></Typography>
+					// <Typography></Typography>
+					<div className={classes.chat}>
+						<Typography variant="subtitle2" style={{ color: '#fff' }} className>
+							{lastMessage?.messageID === `${userID}.id`
+								? 'You'
+								: letters.toUpperCase()}
+						</Typography>
+						<Typography variant="subtitle1" className={classes.chatDescription}>
+							:{lastMessage?.content}
+						</Typography>
+
+						{/* <Typography variant="h6" className={classes.chatCount}>
+						{unReadMessages.count}
+					</Typography> */}
+					</div>
 				)}
 			</div>
 		</div>

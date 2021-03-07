@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import NavBar from './Navbar';
 import Friend from './Friend';
 import { useQuery, gql } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { addCurrentUserID } from '../../../slices/user';
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '30%',
@@ -40,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const SideView = ({ route }) => {
 	//listen for new sgnUps
 	const classes = useStyles();
+	const dispatch = useDispatch();
 
 	const skeleton = (
 		<>
@@ -113,6 +116,11 @@ const SideView = ({ route }) => {
 	// 	id: '6019cd76444a503194234438',
 	// 	email: 'ansahPeter123@gmail.com',
 	// };
+	useEffect(() => {
+		if (data) {
+			dispatch(addCurrentUserID({ id: data.me.id }));
+		}
+	}, [data]);
 
 	return (
 		<div className={classes.root}>

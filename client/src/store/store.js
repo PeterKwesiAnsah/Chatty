@@ -1,13 +1,14 @@
-import {configureStore} from '@reduxjs/toolkit'
-import messagesReducer from '../slices/messages'
-import unReadReducer from '../slices/unRead'
+import { configureStore } from '@reduxjs/toolkit';
+import messagesReducer from '../slices/messages';
+import unReadReducer from '../slices/unRead';
+import userReducer from '../slices/user';
 
+const store = configureStore({
+	reducer: {
+		messages: messagesReducer,
+		unReadMessages: unReadReducer,
+		user: userReducer,
+	},
+});
 
-const store =configureStore({   
-    reducer:{
-        messages:messagesReducer,
-        unReadMessages:unReadReducer
-    }
-})
-
-export default store
+export default store;

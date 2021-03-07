@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/core';
+import Message from './Message';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
@@ -10,8 +11,33 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ChatBox = ({ wallPaper }) => {
+const ChatBox = ({ wallPaper, userID, receiverID }) => {
 	const classes = useStyles();
+	const messages = [
+		{
+			id: '6044303433c2071dac2547a3',
+			messageID: '601a4a719d678236206ec8f0.6019cd76444a503194234438',
+			content: 'charley the milk fini?',
+			read: false,
+			createdAt: '1615081524063',
+			updatedAt: '1615081524063',
+		},
+		{
+			id: '6044303433c2071dac2547a3',
+			messageID: '6019cd76444a503194234438.601a4a719d678236206ec8f0',
+			content: 'yeah',
+			read: false,
+			createdAt: '1615081524063',
+			updatedAt: '1615081524063',
+		},
+	];
+	const renderMessages = messages.map((message) => (
+		<Message
+			message={message}
+			userID={userID}
+			receiverID={receiverID}
+		></Message>
+	));
 
 	// console.log('why');
 
@@ -21,7 +47,9 @@ const ChatBox = ({ wallPaper }) => {
 			<div
 				style={{ backgroundImage: `url(${wallPaper})` }}
 				className={classes.root}
-			></div>
+			>
+				{renderMessages}
+			</div>
 		</>
 	);
 };

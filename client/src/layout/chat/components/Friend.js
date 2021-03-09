@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {addMessage} from '../../../slices/messages'
+import { addMessage } from '../../../slices/messages';
+import { reset } from '../../../slices/unRead';
 
 const Friend = ({ friend }) => {
+	const [showCount, setShowCount] = useState(true);
 	const { pathname } = useLocation();
 	//getting id,email
 	const { id, email } = friend;
+
+	const dispatch = useDispatch();
 
 	//getUnreadMessages && last Message from Messages
 	//if unreadMessages exist..render the last message and it count
@@ -20,6 +24,7 @@ const Friend = ({ friend }) => {
 			return {
 				friendID,
 				message: messages[messages.length - 1],
+				messages,
 				count: messages.length,
 			};
 		}
@@ -99,6 +104,7 @@ const Friend = ({ friend }) => {
 		chat: {
 			display: 'flex',
 			alignItems: 'center',
+			justifyContent: 'space-between',
 			'& > *': {
 				marginRight: theme.spacing(0.5),
 			},
@@ -106,17 +112,33 @@ const Friend = ({ friend }) => {
 		},
 	}));
 	const classes = useStyles();
-	console.log(lastMessage);
 
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
 
-	const handleRoutesChange = () => {
-		//dispatch actions here both to store.messages and store.unReadMessages
-	};
+	// const handleClick = () => {
+	// 	// clear count if user enters chat
+	// 	if (pathname === `/chat/${id}`) {
+	// 		setShowCount(false);
+	// 	}
+	// };
+
+	// const handleRoutesChange = () => {
+	// 	//dispatch actions here both to store.messages and store.unReadMessages
+	// 	if (unReadMessages) {
+	// 		//add to messages
+	// 		dispatch(addMessage({ sender: id, message: unReadMessages.messages }));
+
+	// 		//update the messages
+
+	// 		//reset the unReadMessagesState
+	// 		dispatch(reset({ sender: id }));
+
+	// 	}
+	// };
 
 	return (
-		<div className={classes.root} onClick={handleRoutesChange}>
+		<div className={classes.root}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
 				<Typography variant="subtitle2" className={classes.text}>
@@ -128,21 +150,32 @@ const Friend = ({ friend }) => {
 					</Typography>
 				) : unReadMessages ? (
 					<div className={classes.chat}>
-						<Typography variant="subtitle2" style={{ color: '#fff' }} >
-							{letters.toUpperCase()}
+						<Typography>
+							<Typography
+								variant="subtitle2"
+								style={{ color: '#fff' }}
+								display="inline"
+							>
+								{letters.toUpperCase()}
+							</Typography>
+							<Typography
+								variant="subtitle1"
+								className={classes.chatDescription}
+								display="inline"
+							>
+								:{unReadMessages.message.content}
+							</Typography>
 						</Typography>
-						<Typography variant="subtitle1" className={classes.chatDescription}>
-							:{unReadMessages.message.content}
-						</Typography>
-
-						<Typography variant="h6" className={classes.chatCount}>
-							{unReadMessages.count}
-						</Typography>
+						{pathname !== `/chat/${id}` && (
+							<Typography variant="h6" className={classes.chatCount}>
+								{unReadMessages.count}
+							</Typography>
+						)}
 					</div>
 				) : (
 					// <Typography></Typography>
-					<div className={classes.chat}>
-						<Typography variant="subtitle2" style={{ color: '#fff' }} className>
+					<div className={classes.chat} style={{ justifyContent: 'unset' }}>
+						<Typography variant="subtitle2" style={{ color: '#fff' }}>
 							{lastMessage?.messageID === `${userID}.${id}`
 								? 'You'
 								: letters.toUpperCase()}

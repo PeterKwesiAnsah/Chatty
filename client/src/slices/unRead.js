@@ -20,10 +20,20 @@ const unReadSlice = createSlice({
 				state.push({ friendID: sender, messages });
 			}
 		},
+		reset: (state, action) => {
+			const { sender } = action.payload;
+			const unReadMessagesObj = state.find(
+				({ friendID }) => friendID === sender
+			);
+			if (unReadMessagesObj) {
+				//if a friend exists
+				unReadMessagesObj.messages = [];
+			}
+		},
 	},
 });
 
-export const { addUnReadMessage } = unReadSlice.actions;
+export const { addUnReadMessage ,reset} = unReadSlice.actions;
 export default unReadSlice.reducer;
 
 /*

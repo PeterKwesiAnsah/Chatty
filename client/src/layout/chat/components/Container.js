@@ -114,9 +114,9 @@ const Container = ({ wallPaper }) => {
 	useEffect(() => {
 		window.addEventListener('keyup', handleReturn);
 
-		return () => {
-			window.removeEventListener('keyup', handleReturn);
-		};
+		// return () => {
+		// 	window.removeEventListener('keyup', handleReturn);
+		// };
 	}, []);
 
 	/*

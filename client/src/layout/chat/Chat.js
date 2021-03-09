@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addUnReadMessage } from '../../slices/unRead';
 import { addMessage } from '../../slices/messages';
+import find from '../../utils/find';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,7 +52,7 @@ const Chat = () => {
 	const dispatch = useDispatch();
 	const userID = useSelector((state) => state.user.userID);
 
-	console.log(pathname);
+	// console.log(pathname);
 
 	useEffect(() => {
 		if (message) {
@@ -69,14 +70,20 @@ const Chat = () => {
 				}
 
 				if (pathname === `/chat/${sender}`) {
-					// console.log('hgghsaas');
-					//update the Message store
-					message.newMessage.read = true;
-					//triggerdispatch
-					dispatch(addMessage({ sender, message: message.newMessage }));
-
 					// // update the read to true in database
 					updateMessage({ variables: { messageID: id } });
+					//update the Message store
+					message.newMessage.read = true;
+
+					//if he or she has unread messages.....add it
+					if (find(unReadMessages, sender).length > 0) {
+						dispatch(addUnReadMessage({ sender, message: message.newMessage }));
+					}
+
+					if (find(unReadMessages, sender).length === 0) {
+						//triggerdispatch
+						dispatch(addMessage({ sender, message: message.newMessage }));
+					}
 				}
 			}
 		}

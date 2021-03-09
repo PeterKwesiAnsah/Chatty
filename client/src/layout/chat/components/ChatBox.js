@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import Message from './Message';
 import { useSelector } from 'react-redux';
+import find from '../../../utils/find';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
@@ -10,16 +11,27 @@ const useStyles = makeStyles((theme) => ({
 		backgroundPosition: '50%',
 		backgroundSize: 'cover',
 	},
+	count: {
+		textAlign:'center',
+		backgroundColor:'#585a5d36',
+		padding:theme.spacing(1),
+		'& > *':{
+			backgroundColor:theme.palette.primary.light,
+			borderRadius:theme.spacing(1.2),
+			display:'inline',
+			padding:theme.spacing(.5,1)
+		}
+		
+	},
 }));
 
 const ChatBox = ({ wallPaper, userID, receiverID }) => {
 	const classes = useStyles();
-	const messages = useSelector(
-		(state) =>
-			state.messages.find(({ friendID }) => friendID === receiverID)
-				?.messages || []
+	const messages = useSelector((state) => find(state.messages, receiverID));
+	const unReadMessages = useSelector((state) =>
+		find(state.unReadMessages, receiverID)
 	);
-	console.log(messages);
+	console.log(unReadMessages);
 	// const messages = [
 	// 	{
 	// 		id: '6044303433c2071dac2547a3',
@@ -43,11 +55,22 @@ const ChatBox = ({ wallPaper, userID, receiverID }) => {
 			message={message}
 			userID={userID}
 			receiverID={receiverID}
-			
 		></Message>
 	));
 
+	const renderunReadMessages = unReadMessages.map((message) => (
+		<Message
+			message={message}
+			userID={userID}
+			receiverID={receiverID}
+		></Message>
+	));
+
+	// const unreadMessages
+
 	// console.log('why');
+
+	//unreadMessages are messages left to be rePlied
 
 	//subscription
 	return (
@@ -57,6 +80,13 @@ const ChatBox = ({ wallPaper, userID, receiverID }) => {
 				className={classes.root}
 			>
 				<React.Fragment>{renderMessages}</React.Fragment>
+
+				<>
+					<div className={classes.count}>
+						<Typography variant="subtitle2">{unReadMessages.length} Unread messages</Typography>
+					</div>
+					{renderunReadMessages}
+				</>
 			</div>
 		</>
 	);

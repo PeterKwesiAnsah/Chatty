@@ -8,6 +8,9 @@ const messagesSlice = createSlice({
 			const { sender, message } = action.payload;
 			const messagesObj = state.find(({ friendID }) => friendID === sender);
 			if (messagesObj) {
+				if (message instanceof Array) {
+					messagesObj.messages.push(...message);
+				}
 				//if a friend exists
 				messagesObj.messages.push(message);
 			} else {
@@ -19,7 +22,7 @@ const messagesSlice = createSlice({
 	},
 });
 
-export const {addMessage} =messagesSlice.actions
+export const { addMessage } = messagesSlice.actions;
 
 export default messagesSlice.reducer;
 

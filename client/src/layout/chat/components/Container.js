@@ -106,14 +106,18 @@ const Container = ({ wallPaper }) => {
 	};
 
 	useEffect(() => {
+		
+
 		//find the last inserted data and update it to sent:true
 		if (data) {
+			// console.log(data.createMessage.createdAt)
 			const payload = {
 				user: userID,
 				receiver: receiverID,
 				update: {
 					id: data.createMessage.id,
 					sent: 'true',
+					createdAt:data.createMessage.createdAt,
 				},
 			};
 			dispatch(update(payload));

@@ -27,6 +27,7 @@ const messagesSlice = createSlice({
 			);
 			messages[messages.length - 1].id = update.id;
 			messages[messages.length - 1].sent = update.sent;
+			messages[messages.length - 1].createdAt = update.createdAt;
 		},
 	},
 });

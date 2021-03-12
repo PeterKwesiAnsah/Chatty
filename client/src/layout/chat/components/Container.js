@@ -5,6 +5,7 @@ import ChatBox from './ChatBox';
 import { useMutation, gql } from '@apollo/client';
 import { useLocation } from 'react-router-dom';
 import { addMessage } from '../../../slices/messages';
+import { update } from '../../../slices/messages';
 import { useSelector, useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
 	textArea: {
@@ -91,6 +92,7 @@ const Container = ({ wallPaper }) => {
 						messageID: `${userID}.${receiverID}`,
 						content: message,
 						read: false,
+						sent: 'false',
 					},
 				})
 			);
@@ -104,11 +106,19 @@ const Container = ({ wallPaper }) => {
 	};
 
 	useEffect(() => {
-		console.log(loading);
+		//find the last inserted data and update it to sent:true
 		if (data) {
-			console.log('messageSent');
+			const payload = {
+				user: userID,
+				receiver: receiverID,
+				update: {
+					id: data.createMessage.id,
+					sent: 'true',
+				},
+			};
+			dispatch(update(payload));
 		}
-	}, [loading]);
+	}, [data]);
 
 	//return key event
 	useEffect(() => {

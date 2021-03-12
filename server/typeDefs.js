@@ -89,6 +89,7 @@ const typeDefs = gql`
 	type Subscription {
 		newMessage:Message
 		newSignUp: AuthUser!
+		readUpdate:ID!
 	}
 	type FriendMessages{
 		friendID:String!

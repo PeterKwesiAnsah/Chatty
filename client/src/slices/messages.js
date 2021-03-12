@@ -19,10 +19,19 @@ const messagesSlice = createSlice({
 				state.push({ friendID: sender, messages });
 			}
 		},
+		update: (state, action) => {
+			const { user, receiver, update } = action.payload;
+			const messagesObj = state.find(({ friendID }) => friendID === receiver);
+			const messages = messagesObj['messages'].filter(
+				({ messageID }) => messageID === `${user}.${receiver}`
+			);
+			messages[messages.length - 1].id = update.id;
+			messages[messages.length - 1].sent = update.sent;
+		},
 	},
 });
 
-export const { addMessage } = messagesSlice.actions;
+export const { addMessage, update } = messagesSlice.actions;
 
 export default messagesSlice.reducer;
 

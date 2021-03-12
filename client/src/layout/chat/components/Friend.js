@@ -6,7 +6,7 @@ import { addMessage } from '../../../slices/messages';
 import { reset } from '../../../slices/unRead';
 
 const Friend = ({ friend }) => {
-	const [showCount, setShowCount] = useState(true);
+	// const [showCount, setShowCount] = useState(true);
 	const { pathname } = useLocation();
 	//getting id,email
 	const { id, email } = friend;
@@ -41,6 +41,7 @@ const Friend = ({ friend }) => {
 
 	const lastMessage = useSelector((state) => {
 		const messagesObj = state.messages.find(({ friendID }) => id === friendID);
+		//refactor code
 		if (messagesObj) {
 			const { messages } = messagesObj;
 			return messages[messages.length - 1];
@@ -151,19 +152,19 @@ const Friend = ({ friend }) => {
 				) : unReadMessages ? (
 					<div className={classes.chat}>
 						<Typography>
-							<Typography
+							{/* <Typography
 								variant="subtitle2"
 								style={{ color: '#fff' }}
 								display="inline"
 							>
 								{letters.toUpperCase()}
-							</Typography>
+							</Typography> */}
 							<Typography
 								variant="subtitle1"
 								className={classes.chatDescription}
 								display="inline"
 							>
-								:{unReadMessages.message.content}
+								{unReadMessages.message.content}
 							</Typography>
 						</Typography>
 						{pathname !== `/chat/${id}` && (

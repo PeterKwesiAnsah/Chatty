@@ -24,7 +24,7 @@ const server = new ApolloServer({
 			}
 			return { createToken, getUserFromToken, models };
 		} catch (e) {
-			console.log(e);
+			console.log(e);   
 		}
 	},
 });

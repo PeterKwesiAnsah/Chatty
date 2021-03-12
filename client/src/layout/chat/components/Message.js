@@ -5,7 +5,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import { SvgIcon } from '@material-ui/core';
 import getTime from '../../../utils/getTime';
 const Message = ({ message, userID, receiverID }) => {
-	const { messageID, sent, createdAt } = message;
+	const { messageID, sent,createdAt} = message;
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			padding: theme.spacing(0.5, 4),

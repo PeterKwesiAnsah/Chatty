@@ -4,6 +4,9 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from '../../../slices/messages';
 import { reset } from '../../../slices/unRead';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import CheckIcon from '@material-ui/icons/Check';
+import { SvgIcon } from '@material-ui/core';
 
 const Friend = ({ friend }) => {
 	// const [showCount, setShowCount] = useState(true);
@@ -48,6 +51,7 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
+	console.log(lastMessage);
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -109,6 +113,9 @@ const Friend = ({ friend }) => {
 			'& > *': {
 				marginRight: theme.spacing(0.5),
 			},
+			'& svg':{
+				color:theme.palette.primary.light
+			}
 			// justifyContent: 'center',
 		},
 	}));
@@ -116,6 +123,25 @@ const Friend = ({ friend }) => {
 
 	const username = email.split('@')[0];
 	const letters = email.split('@')[0][0] + email.split('@')[0][1];
+
+	const renderStatus = (
+		<>
+			{lastMessage?.sent === 'false' &&
+			lastMessage?.messageID === `${userID}.${id}` ? (
+				<SvgIcon fontSize="small">
+					<AccessTimeIcon></AccessTimeIcon>
+				</SvgIcon>
+			) : (
+				<>
+					{lastMessage?.messageID === `${userID}.${id}` && (
+						<SvgIcon fontSize="small">
+							<CheckIcon></CheckIcon>
+						</SvgIcon>
+					)}
+				</>
+			)}
+		</>
+	);
 
 	// const handleClick = () => {
 	// 	// clear count if user enters chat
@@ -176,13 +202,14 @@ const Friend = ({ friend }) => {
 				) : (
 					// <Typography></Typography>
 					<div className={classes.chat} style={{ justifyContent: 'unset' }}>
-						<Typography variant="subtitle2" style={{ color: '#fff' }}>
+						{/* <Typography variant="subtitle2" style={{ color: '#fff' }}>
 							{lastMessage?.messageID === `${userID}.${id}`
 								? 'You'
 								: letters.toUpperCase()}
-						</Typography>
+						</Typography> */}
+						{renderStatus}
 						<Typography variant="subtitle1" className={classes.chatDescription}>
-							:{lastMessage?.content}
+							{lastMessage?.content}
 						</Typography>
 
 						{/* <Typography variant="h6" className={classes.chatCount}>

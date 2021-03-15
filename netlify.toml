@@ -1,3 +1,0 @@
-base    = "chatty/client/"
-publish = "client/build"
-command = "npm run build"

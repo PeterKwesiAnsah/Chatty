@@ -7,6 +7,7 @@ import { reset } from '../../../slices/unRead';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import CheckIcon from '@material-ui/icons/Check';
 import { SvgIcon } from '@material-ui/core';
+import getTime from '../../../utils/getTime';
 
 const Friend = ({ friend }) => {
 	// const [showCount, setShowCount] = useState(true);
@@ -113,10 +114,19 @@ const Friend = ({ friend }) => {
 			'& > *': {
 				marginRight: theme.spacing(0.5),
 			},
-			'& svg':{
-				color:theme.palette.primary.light
-			}
+			'& svg': {
+				color: theme.palette.primary.light,
+			},
+
 			// justifyContent: 'center',
+		},
+		friendHeader: {
+			width: '100%',
+			display: 'flex',
+			justifyContent: 'space-between',
+		},
+		chatTime: {
+			color: theme.palette.primary.light,
 		},
 	}));
 	const classes = useStyles();
@@ -168,11 +178,21 @@ const Friend = ({ friend }) => {
 		<div className={classes.root}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
 			<div className={classes.chatInfo}>
-				<Typography variant="subtitle2" className={classes.text}>
-					{username}
-				</Typography>
+				<div className={classes.friendHeader}>
+					<Typography variant="subtitle2" className={classes.text}>
+						{username}
+					</Typography>
+					{(lastMessage || unReadMessages) && (
+						<Typography variant="subtitle2" className={classes.chatTime}>
+							{getTime(
+								lastMessage?.createdAt || unReadMessages?.message?.createdAt
+							)}
+						</Typography>
+					)}
+				</div>
+
 				{!(unReadMessages || lastMessage) ? (
-					<Typography variant="subtitle1" className={classes.chatDescription}>
+					<Typography variant="subtitle2" className={classes.chatDescription}>
 						You have sent or received no messages
 					</Typography>
 				) : unReadMessages ? (

@@ -24,8 +24,8 @@ const Chat = () => {
 	const classes = useStyles();
 	//listen to subscriptions here
 	const NEW_MESSAGE = gql`
-		subscription getNewMessage {
-			newMessage {
+		subscription getNewMessage($userID: String!) {
+			newMessage(userID: $userID) {
 				id
 				messageID
 				content
@@ -45,12 +45,15 @@ const Chat = () => {
 	`;
 	//route match of parent route
 	const match = useRouteMatch();
-	const { data: message } = useSubscription(NEW_MESSAGE);
+
 	const { pathname } = useLocation();
 	const unReadMessages = useSelector((state) => state.unReadMessages);
 	const [updateMessage] = useMutation(UPDATE_MESSAGE);
 	const dispatch = useDispatch();
 	const userID = useSelector((state) => state.user.userID);
+	const { data: message } = useSubscription(NEW_MESSAGE, {
+		variables: { userID },
+	});
 
 	// console.log(pathname);
 

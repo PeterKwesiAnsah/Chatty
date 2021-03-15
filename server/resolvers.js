@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const { PubSub } = require('apollo-server');
+const { PubSub, withFilter } = require('apollo-server');
 
 const pubsub = new PubSub();
 
@@ -165,7 +165,15 @@ module.exports = {
 
 	Subscription: {
 		newMessage: {
-			subscribe: () => pubsub.asyncIterator([NEW_MESSAGE]),
+			subscribe: withFilter(
+				() => pubsub.asyncIterator([NEW_MESSAGE]),
+				({ newMessage }, variables) => {
+					const { userID } = variables;
+					const { messageID } = newMessage;
+					const [sender, receiver] = messageID.split('.');
+					return userID === receiver;
+				}
+			),
 		},
 		newSignUp: {
 			subscribe: () => pubsub.asyncIterator([NEW_SIGNUP]),

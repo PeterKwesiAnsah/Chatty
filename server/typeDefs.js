@@ -87,7 +87,7 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-		newMessage:Message
+		newMessage(userID:String!):Message
 		newSignUp: AuthUser!
 		readUpdate:ID!
 	}

@@ -63,30 +63,28 @@ const Chat = () => {
 			const { id, messageID } = message.newMessage;
 
 			//get receiver and senderIDs
-			const [sender, receiver] = messageID.split('.');
+			const [sender] = messageID.split('.');
 
-			if (receiver === userID) {
-				//user not present in sender's route....add message to unRead
-				if (pathname !== `/chat/${sender}`) {
-					//update the unReadMessagesStore
+			//user not present in sender's route....add message to unRead
+			if (pathname !== `/chat/${sender}`) {
+				//update the unReadMessagesStore
+				dispatch(addUnReadMessage({ sender, message: message.newMessage }));
+			}
+
+			if (pathname === `/chat/${sender}`) {
+				// // update the read to true in database
+				updateMessage({ variables: { messageID: id } });
+				//update the Message store
+				message.newMessage.read = true;
+
+				//if he or she has unread messages.....add it
+				if (find(unReadMessages, sender).length > 0) {
 					dispatch(addUnReadMessage({ sender, message: message.newMessage }));
 				}
 
-				if (pathname === `/chat/${sender}`) {
-					// // update the read to true in database
-					updateMessage({ variables: { messageID: id } });
-					//update the Message store
-					message.newMessage.read = true;
-
-					//if he or she has unread messages.....add it
-					if (find(unReadMessages, sender).length > 0) {
-						dispatch(addUnReadMessage({ sender, message: message.newMessage }));
-					}
-
-					if (find(unReadMessages, sender).length === 0) {
-						//triggerdispatch
-						dispatch(addMessage({ sender, message: message.newMessage }));
-					}
+				if (find(unReadMessages, sender).length === 0) {
+					//triggerdispatch
+					dispatch(addMessage({ sender, message: message.newMessage }));
 				}
 			}
 		}

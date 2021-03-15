@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ChatBox = ({ wallPaper, userID, receiverID }) => {
+const ChatBox = ({ wallPaper, userID, receiverID, children }) => {
 	const classes = useStyles();
 	const messages = useSelector((state) => find(state.messages, receiverID));
 	const unReadMessages = useSelector((state) =>
@@ -47,8 +47,6 @@ const ChatBox = ({ wallPaper, userID, receiverID }) => {
 		></Message>
 	));
 
-
-
 	//subscription
 	return (
 		<>
@@ -68,8 +66,9 @@ const ChatBox = ({ wallPaper, userID, receiverID }) => {
 					</>
 				)}
 			</div>
+			{children}
 		</>
-	);   
+	);
 };
 
 export default memo(ChatBox);

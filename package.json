@@ -1,0 +1,8 @@
+{
+	"name": "chatty_monorepo",
+	"version": "1.0.0",
+	"license": "MIT",
+	"scripts": {
+		"build-server": "npm --prefix server run dev"
+	}
+}

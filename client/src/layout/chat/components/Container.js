@@ -106,8 +106,6 @@ const Container = ({ wallPaper }) => {
 	};
 
 	useEffect(() => {
-		
-
 		//find the last inserted data and update it to sent:true
 		if (data) {
 			const payload = {
@@ -116,7 +114,7 @@ const Container = ({ wallPaper }) => {
 				update: {
 					id: data.createMessage.id,
 					sent: 'true',
-					createdAt:data.createMessage.createdAt,
+					createdAt: data.createMessage.createdAt,
 				},
 			};
 			dispatch(update(payload));
@@ -127,10 +125,10 @@ const Container = ({ wallPaper }) => {
 	useEffect(() => {
 		window.addEventListener('keyup', handleReturn);
 
-		// return () => {
-		// 	window.removeEventListener('keyup', handleReturn);
-		// };
-	}, []);
+		return () => {
+			window.removeEventListener('keyup', handleReturn);
+		};
+	});
 
 	/*
 loading:tru...view the placeholdermessage
@@ -139,25 +137,22 @@ loading:tru...view the placeholdermessage
 	//subscription
 	return (
 		<div className={classes.root}>
-			<ChatBox
-				wallPaper={wallPaper}
-				userID={userID}
-				receiverID={receiverID}
-			></ChatBox>
-			<div className={classes.textArea}>
-				<input
-					type="text"
-					className={classes.input}
-					value={message}
-					onChange={(e) => setMessage(e.target.value)}
-					placeholder="Type your message here "
-				></input>
-				{message && (
-					<IconButton color="secondary" onClick={handleClick}>
-						<NearMeIcon fontSize="large"></NearMeIcon>
-					</IconButton>
-				)}
-			</div>
+			<ChatBox wallPaper={wallPaper} userID={userID} receiverID={receiverID}>
+				<div className={classes.textArea}>
+					<input
+						type="text"
+						className={classes.input}
+						value={message}
+						onChange={(e) => setMessage(e.target.value)}
+						placeholder="Type your message here "
+					></input>
+					{message && (
+						<IconButton color="secondary" onClick={handleClick}>
+							<NearMeIcon fontSize="large"></NearMeIcon>
+						</IconButton>
+					)}
+				</div>
+			</ChatBox>
 		</div>
 	);
 };

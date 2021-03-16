@@ -83,6 +83,8 @@ const Share = () => {
 	//Snackbar state
 	const [open, setOpen] = useState(false);
 
+	console.log(localStorage.getItem('token', 'fuvk'));
+
 	const { loading, error, data } = useQuery(GET_ME);
 
 	//handles copy to clipboard
@@ -103,10 +105,11 @@ const Share = () => {
 		if (invitedBy === data.me.id) {
 			console.log('you have a new signUp');
 
-			
 			history.push('/chat');
 		}
 	}
+
+	console.log(error);
 
 	return (
 		<div className={classes.root}>
@@ -140,7 +143,7 @@ const Share = () => {
 						Share!
 					</Typography>
 				</Typography>
-				{loading ? (
+				{loading && !data ? (
 					<Skeleton
 						animation="wave"
 						variant="text"
@@ -148,17 +151,23 @@ const Share = () => {
 					></Skeleton>
 				) : (
 					<div className={classes.inviteBox}>
-						<Typography variant="h6" className={classes.invite} paragraph>
-							{'http://localhost:3000/signUp&inviteCode=' + data?.me.id}
-						</Typography>
-						<CopyToClipboard
-							onCopy={handleCopy}
-							text={'http://localhost:3000/signUp&inviteCode=' + data?.me.id}
-						>
-							<Button variant="contained" className={classes.btn}>
-								<Typography>Copy</Typography>
-							</Button>
-						</CopyToClipboard>
+						{(data && !loading) && (
+							<>
+								{' '}
+								<Typography variant="h6" className={classes.invite} paragraph>
+									{'http://localhost:3000/signUp&inviteCode=' + data?.me?.id}
+								</Typography>
+								<CopyToClipboard
+									onCopy={handleCopy}
+									text={'http://localhost:3000/signUp&inviteCode=' + data?.me?.id}
+								>
+									<Button variant="contained" className={classes.btn}>
+										<Typography>Copy</Typography>
+									</Button>
+								</CopyToClipboard>
+							</>
+						)}
+
 						{data.me.friends.length ? (
 							<Typography variant="h6">
 								You have a friend,

@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import NavBar from '../layout/home/components/Navbar';
 import {
 	makeStyles,
@@ -105,12 +105,19 @@ const SIGN_UP = gql`
 `;
 
 const SignUpView = () => {
+
+	
+	//init token to local Storage
+	localStorage.setItem('token', '');
+
 	const classes = useStyles();
 
 	const history = useHistory();
 
 	//get invitedById
 	const code = useParams()?.code;
+
+
 
 	const [createUser, { data, loading, error }] = useMutation(SIGN_UP);
 	//get User SignUp details
@@ -142,6 +149,7 @@ const SignUpView = () => {
 				createUser({
 					variables: { user: { ...userDetails, invitedBy: code } },
 				});
+				return;
 			}
 
 			createUser({ variables: { user: userDetails } });
@@ -150,19 +158,20 @@ const SignUpView = () => {
 		}
 	};
 
-	if (data) {
-		//get token..
-		const { token } = data.signUp;
+	useEffect(() => {
+		if (data && !loading) {
+			//get token..
+			const { token } = data.signUp;
 
-		//save token to local Storage
-		localStorage.setItem('token', token);
+			//save token to local Storage
+			localStorage.setItem('token', token);
 
-		if (!code) history.push('/share');
-		
-		else {
-			history.push('/chat');
+			if (!code) history.push('/share');
+			else {
+				history.push('/chat');
+			}
 		}
-	}
+	}, [data]);
 
 	return (
 		<>
@@ -176,7 +185,7 @@ const SignUpView = () => {
 						<Typography variant="h4">
 							Sign Up!, with{' '}
 							<Typography variant="h4" color="secondary" display="inline">
-								Schooly.
+								Chatty
 							</Typography>
 						</Typography>
 					</div>
@@ -206,7 +215,7 @@ const SignUpView = () => {
 								/>
 							</div>
 						</form>
-						{loading && (
+						{(loading && !data) && (
 							<div className={classes.loader}>
 								<CircularProgress color="secondary"></CircularProgress>
 							</div>

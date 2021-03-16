@@ -1,4 +1,4 @@
-import React, { Fragment,useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import NavBar from './Navbar';
 import Friend from './Friend';
@@ -120,6 +120,8 @@ const SideView = ({ route }) => {
 		if (data) {
 			dispatch(addCurrentUserID({ id: data.me.id }));
 		}
+
+		console.log(data);
 	}, [data]);
 
 	return (
@@ -129,8 +131,8 @@ const SideView = ({ route }) => {
 				<div className={classes.friendsBar}>
 					{loading
 						? skeleton
-						: data.me.friends &&
-						  data.me.friends.map((friend) => (
+						: data?.me?.friends &&
+						  data?.me?.friends.map((friend) => (
 								<Link to={route + '/' + friend.id} key={friend.id}>
 									<Friend friend={friend}></Friend>
 								</Link>

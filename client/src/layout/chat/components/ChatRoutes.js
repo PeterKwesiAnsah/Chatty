@@ -4,6 +4,7 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import { makeStyles, Typography } from '@material-ui/core';
 import wallPaperFour from '../../../assets/wallPaperFour.jpg';
 import Container from './Container';
+import { gql, useApolloClient } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,14 +27,29 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: theme.spacing(1),
 	},
 }));
+
+//get user query
+const GET_FRIENDS = gql`
+	query getFriends {
+		me {
+			id
+			friends {
+				id
+				email
+			}
+		}
+	}
+`;
 const ChatRoutes = ({ route }) => {
 	const classes = useStyles();
+	const client = useApolloClient();
 
-	const friends = [
-		{ email: 'kofibabone1234@gmail.com', id: '60510ff85788800ff0eadcb7' },
+	//read  data from cache
+	const { me } = client.readQuery({
+		query: GET_FRIENDS,
+	}) || {};
 
-		{ email: 'greenlatern@gmail.com', id: '605128bc18fdf332b4f146c1' },
-	];
+	const friends = me?.friends || [];
 
 	console.log(friends);
 	return (

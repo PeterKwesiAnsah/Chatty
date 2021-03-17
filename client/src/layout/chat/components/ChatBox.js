@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { addMessage } from '../../../slices/messages';
 import { update } from '../../../slices/messages';
 import { useSelector, useDispatch } from 'react-redux';
+import { reset } from '../../../slices/unRead';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -92,6 +93,22 @@ const ChatBox = ({ wallPaper }) => {
 	const handleReturn = (e) => {
 		if (e.keyCode === 13) {
 			if (message) {
+				console.log(unReadMessages);
+				if (unReadMessages.length > 0) {
+					//addmessage to state
+					unReadMessages.forEach((message) => {
+						dispatch(
+							addMessage({
+								sender: receiverID,
+								message: {
+									...message,
+									read: true,
+								},
+							})
+						);
+					});
+					dispatch(reset({ sender: receiverID }));
+				}
 				//addmessage to state
 				dispatch(
 					addMessage({

@@ -18,7 +18,7 @@ const unReadSlice = createSlice({
 				messages.push(message);
 
 				state.push({ friendID: sender, messages });
-			}
+			}  
 		},
 		reset: (state, action) => {
 			const { sender } = action.payload;

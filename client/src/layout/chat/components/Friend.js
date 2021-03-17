@@ -210,7 +210,7 @@ const Friend = ({ friend }) => {
 								className={classes.chatDescription}
 								display="inline"
 							>
-								{unReadMessages.message.content}
+								{unReadMessages.message?.content}
 							</Typography>
 						</Typography>
 						{pathname !== `/chat/${id}` && (

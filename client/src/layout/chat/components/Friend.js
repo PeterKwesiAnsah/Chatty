@@ -52,7 +52,7 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
-	console.log(lastMessage);
+	console.log(lastMessage,unReadMessages);
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -153,26 +153,6 @@ const Friend = ({ friend }) => {
 		</>
 	);
 
-	// const handleClick = () => {
-	// 	// clear count if user enters chat
-	// 	if (pathname === `/chat/${id}`) {
-	// 		setShowCount(false);
-	// 	}
-	// };
-
-	// const handleRoutesChange = () => {
-	// 	//dispatch actions here both to store.messages and store.unReadMessages
-	// 	if (unReadMessages) {
-	// 		//add to messages
-	// 		dispatch(addMessage({ sender: id, message: unReadMessages.messages }));
-
-	// 		//update the messages
-
-	// 		//reset the unReadMessagesState
-	// 		dispatch(reset({ sender: id }));
-
-	// 	}
-	// };
 
 	return (
 		<div className={classes.root}>
@@ -195,7 +175,7 @@ const Friend = ({ friend }) => {
 					<Typography variant="subtitle2" className={classes.chatDescription}>
 						You have sent or received no messages
 					</Typography>
-				) : unReadMessages ? (
+				) : (unReadMessages?.message) ? (
 					<div className={classes.chat}>
 						<Typography>
 							{/* <Typography

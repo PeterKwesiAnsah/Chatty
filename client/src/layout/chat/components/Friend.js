@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { makeStyles, Avatar, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from '../../../slices/messages';
-import { reset } from '../../../slices/unRead';
+// import { addMessage } from '../../../slices/messages';
+// import { reset } from '../../../slices/unRead';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import CheckIcon from '@material-ui/icons/Check';
 import { SvgIcon } from '@material-ui/core';
@@ -15,7 +15,7 @@ const Friend = ({ friend }) => {
 	//getting id,email
 	const { id, email } = friend;
 
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	//getUnreadMessages && last Message from Messages
 	//if unreadMessages exist..render the last message and it count
@@ -52,7 +52,7 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
-	console.log(lastMessage,unReadMessages);
+	console.log(lastMessage, unReadMessages);
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -64,10 +64,7 @@ const Friend = ({ friend }) => {
 			'&:hover': {
 				backgroundColor: '#585a5d85',
 			},
-			// transition:'all 5s',
-			// backgroundColor:theme.palette.primary.dark
-			// alignItems: 'flex-start',
-			// justifyContent: 'space-evenly',
+		
 		},
 		avatar: {
 			width: theme.spacing(7.5),
@@ -153,7 +150,6 @@ const Friend = ({ friend }) => {
 		</>
 	);
 
-
 	return (
 		<div className={classes.root}>
 			<Avatar className={classes.avatar}>{letters.toUpperCase()}</Avatar>
@@ -165,7 +161,7 @@ const Friend = ({ friend }) => {
 					{(lastMessage || unReadMessages) && (
 						<Typography variant="subtitle2" className={classes.chatTime}>
 							{getTime(
-								lastMessage?.createdAt || unReadMessages?.message?.createdAt
+								unReadMessages?.message?.createdAt || lastMessage?.createdAt
 							)}
 						</Typography>
 					)}
@@ -175,7 +171,7 @@ const Friend = ({ friend }) => {
 					<Typography variant="subtitle2" className={classes.chatDescription}>
 						You have sent or received no messages
 					</Typography>
-				) : (unReadMessages?.message) ? (
+				) : unReadMessages?.message ? (
 					<div className={classes.chat}>
 						<Typography>
 							{/* <Typography

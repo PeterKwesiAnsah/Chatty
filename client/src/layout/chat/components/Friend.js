@@ -122,7 +122,7 @@ const Friend = ({ friend }) => {
 			display: 'flex',
 			justifyContent: 'space-between',
 		},
-		chatTime: {
+		chatTime: {    
 			color: theme.palette.primary.light,
 		},
 	}));

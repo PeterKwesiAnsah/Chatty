@@ -116,6 +116,7 @@ const SignUpView = () => {
 
 	//get invitedById
 	const code = useParams()?.code;
+	
 
 
 

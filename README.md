@@ -1,2 +1,2 @@
 # Chatty
-A full stack GraphQL application
+A full stack GraphQL application.

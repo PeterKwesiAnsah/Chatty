@@ -1,2 +1,2 @@
 # Chatty
-A Full-Stack GraqhQl Chat Application.
+A Full-Stack GraqhQl Messaging Application.

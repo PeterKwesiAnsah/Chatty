@@ -52,7 +52,7 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
-	console.log(lastMessage, unReadMessages);
+	
 
 	const useStyles = makeStyles((theme) => ({
 		root: {

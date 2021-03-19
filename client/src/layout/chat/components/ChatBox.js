@@ -9,6 +9,7 @@ import { addMessage } from '../../../slices/messages';
 import { update } from '../../../slices/messages';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset } from '../../../slices/unRead';
+import { nanoid } from 'nanoid';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -190,6 +191,7 @@ loading:tru...view the placeholdermessage
 			message={message}
 			userID={userID}
 			receiverID={receiverID}
+			key={message.id || nanoid()}
 		></Message>
 	));
 
@@ -198,6 +200,7 @@ loading:tru...view the placeholdermessage
 			message={message}
 			userID={userID}
 			receiverID={receiverID}
+			key={message.id || nanoid()}          
 		></Message>
 	));
 

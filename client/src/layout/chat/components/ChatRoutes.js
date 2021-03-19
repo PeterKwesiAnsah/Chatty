@@ -51,7 +51,6 @@ const ChatRoutes = ({ route }) => {
 
 	const friends = me?.friends || [];
 
-	console.log(friends);
 	return (
 		<div className={classes.root}>
 			<Switch>

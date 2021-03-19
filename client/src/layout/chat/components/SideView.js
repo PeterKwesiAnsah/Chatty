@@ -121,7 +121,6 @@ const SideView = ({ route }) => {
 			dispatch(addCurrentUserID({ id: data.me.id }));
 		}
 
-		console.log(data);
 	}, [data]);
 
 	return (

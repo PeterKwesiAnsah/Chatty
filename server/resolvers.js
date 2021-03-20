@@ -99,7 +99,8 @@ module.exports = {
 				}
 			);
 		},
-		updateMessage: async (_, input, { models }) => {
+		updateMessage: async (_,  input , { models }) => {
+			console.log(input);
 			pubsub.publish(READ_UPDATE, { readUpdate: input });
 
 			//find message document with such message id
@@ -186,9 +187,9 @@ module.exports = {
 				() => pubsub.asyncIterator([READ_UPDATE]),
 
 				({ readUpdate }, { userID }) => {
-					const
+					const { messageID } = readUpdate;
 					//readUpdate returns messageID
-					const [sender, receiver] = readUpdate.split('.');
+					const [sender] = messageID.split('.');
 
 					return sender === userID;
 				}

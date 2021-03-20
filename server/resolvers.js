@@ -99,13 +99,12 @@ module.exports = {
 				}
 			);
 		},
-		updateMessage: async (_,  input , { models }) => {
-			console.log(input);
+		updateMessage: async (_, { input }, { models }) => {
 			pubsub.publish(READ_UPDATE, { readUpdate: input });
 
 			//find message document with such message id
 			return await models.Message.findByIdAndUpdate(
-				messageID,
+				input.id,
 				{ read: true },
 				{ new: true }
 			);

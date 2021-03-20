@@ -37,7 +37,7 @@ const Chat = () => {
 	`;
 
 	const UPDATE_MESSAGE = gql`
-		mutation updateMessage($messageInfo: messageInfoArgs!) {
+		mutation updateMessage($messageInfo: MessageInfoArgs!) {
 			updateMessage(input: $messageInfo) {
 				read
 			}
@@ -61,6 +61,7 @@ const Chat = () => {
 		if (message) {
 			//when a new data is created
 			const { id, messageID } = message.newMessage;
+			console.log(messageID)
 
 			//get receiver and senderIDs
 			const [sender] = messageID.split('.');
@@ -74,6 +75,8 @@ const Chat = () => {
 			if (pathname === `/chat/${sender}`) {
 				// // update the read to true in database
 				updateMessage({ variables: { messageInfo: { id, messageID } } });
+				
+
 				//update the Message store
 				message.newMessage.read = true;
 

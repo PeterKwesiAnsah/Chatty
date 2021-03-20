@@ -135,7 +135,7 @@ const Friend = ({ friend }) => {
 					{lastMessage?.messageID === `${userID}.${id}` && (
 						<SvgIcon fontSize="small">
 							<CheckIcon
-								style={{ fill: lastMessage?.read ? '#3f51b5' : 'currentcolor' }}
+								style={{ fill: lastMessage?.read ? '#3f51b5b8' : 'currentcolor' }}
 							></CheckIcon>
 						</SvgIcon>
 					)}

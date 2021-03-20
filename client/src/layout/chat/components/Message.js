@@ -78,7 +78,7 @@ const Message = ({ message, userID, receiverID }) => {
 					{messageID === `${userID}.${receiverID}` && (
 						<SvgIcon fontSize="small">
 							<CheckIcon
-								style={{ fill: message.read ? '#3f51b5' : 'currentcolor' }}
+								style={{ fill: message.read ? '#3f51b5b8' : 'currentcolor' }}
 							></CheckIcon>
 						</SvgIcon>
 					)}

@@ -90,8 +90,6 @@ module.exports = {
 			return message;
 		},
 		updateSettings: async (_, { input }, { user, models }) => {
-
-			
 			//find settings document with such userID and update with inputArgs
 			return await models.Settings.findOneAndUpdate(
 				{ userID: user.id },
@@ -101,7 +99,9 @@ module.exports = {
 				}
 			);
 		},
-		updateMessage: async (_, { messageID }, { models }) => {
+		updateMessage: async (_, input, { models }) => {
+			pubsub.publish(READ_UPDATE, { readUpdate: input });
+
 			//find message document with such message id
 			return await models.Message.findByIdAndUpdate(
 				messageID,
@@ -186,6 +186,7 @@ module.exports = {
 				() => pubsub.asyncIterator([READ_UPDATE]),
 
 				({ readUpdate }, { userID }) => {
+					const
 					//readUpdate returns messageID
 					const [sender, receiver] = readUpdate.split('.');
 

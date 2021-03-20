@@ -73,7 +73,7 @@ const Chat = () => {
 
 			if (pathname === `/chat/${sender}`) {
 				// // update the read to true in database
-				updateMessage({ variables: { messageID: id } });
+				updateMessage({ variables: { id, messageID } });
 				//update the Message store
 				message.newMessage.read = true;
 

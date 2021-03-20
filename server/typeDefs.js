@@ -60,7 +60,7 @@ const typeDefs = gql`
 		token: String!
 		user: User!
 	}
-	type MessageInfo {
+	input MessageInfo {
 		id: ID!
 		messageID: String!
 	}
@@ -78,7 +78,7 @@ const typeDefs = gql`
 		signUp(input: signUpInput!): AuthUser!
 		signIn(input: signinInput!): AuthUser!
 		createMessage(input: MessageInput!): Message!
-		updateMessage(messageID: String!): Message!
+		updateMessage(input:MessageInfo): Message!
 		updateSettings(input: SettingsInput): Settings!
 	}
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import { makeStyles, Typography } from '@material-ui/core';
 import wallPaperFour from '../../../assets/wallPaperFour.jpg';
@@ -45,9 +45,10 @@ const ChatRoutes = ({ route }) => {
 	const client = useApolloClient();
 
 	//read  data from cache
-	const { me } = client.readQuery({
-		query: GET_FRIENDS,
-	}) || {};
+	const { me } =
+		client.readQuery({
+			query: GET_FRIENDS,
+		}) || {};
 
 	const friends = me?.friends || [];
 

@@ -6,6 +6,7 @@ const pubsub = new PubSub();
 
 const NEW_MESSAGE = 'NEW_MESSAGE';
 const NEW_SIGNUP = 'NEW_SIGNUP_BY INVITE';
+const READ_UPDATE = 'READ_UPDATE';
 
 module.exports = {
 	Mutation: {
@@ -89,6 +90,8 @@ module.exports = {
 			return message;
 		},
 		updateSettings: async (_, { input }, { user, models }) => {
+
+			
 			//find settings document with such userID and update with inputArgs
 			return await models.Settings.findOneAndUpdate(
 				{ userID: user.id },
@@ -177,6 +180,18 @@ module.exports = {
 		},
 		newSignUp: {
 			subscribe: () => pubsub.asyncIterator([NEW_SIGNUP]),
+		},
+		readUpdate: {
+			subscribe: withFilter(
+				() => pubsub.asyncIterator([READ_UPDATE]),
+
+				({ readUpdate }, { userID }) => {
+					//readUpdate returns messageID
+					const [sender, receiver] = readUpdate.split('.');
+
+					return sender === userID;
+				}
+			),
 		},
 	},
 };

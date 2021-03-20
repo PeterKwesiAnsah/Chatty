@@ -8,7 +8,7 @@ const Message = ({ message, userID, receiverID }) => {
 	const { messageID, sent,createdAt} = message;
 	const useStyles = makeStyles((theme) => ({
 		root: {
-			padding: theme.spacing(0.5, 4),
+			padding: theme.spacing(0.6, 4),
 			width: '100%',
 			display: 'flex',
 			justifyContent:

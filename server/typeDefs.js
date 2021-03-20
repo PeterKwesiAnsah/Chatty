@@ -11,17 +11,16 @@ const typeDefs = gql`
 		id: ID!
 		email: String!
 		friends: [User]
-		invitedBy: String,
-		
+		invitedBy: String
 	}
 
 	type Message {
-		id:ID!
+		id: ID!
 		messageID: String!
 		content: String!
-		read:Boolean
-		createdAt:String!
-		updatedAt:String!
+		read: Boolean
+		createdAt: String!
+		updatedAt: String!
 	}
 
 	type Invite {
@@ -49,35 +48,38 @@ const typeDefs = gql`
 	type Query {
 		me: User!
 		messages(receiverID: String): [Message]
-		settings:Settings!,
-		unRead:[Message]
+		settings: Settings!
+		unRead: [Message]
 
 		# messages(receiverID: String): [FriendMessages]
 
 		# unRead:[FriendMessages]
-		
 	}
 
 	type AuthUser {
 		token: String!
 		user: User!
 	}
+	type MessageInfo {
+		id: ID!
+		messageID: String!
+	}
 	input MessageInput {
 		receiverID: String!
 		content: String!
-	} 
+	}
 
-	input SettingsInput{
-		theme:String
-		pushNotifications:String  
+	input SettingsInput {
+		theme: String
+		pushNotifications: String
 	}
 
 	type Mutation {
 		signUp(input: signUpInput!): AuthUser!
 		signIn(input: signinInput!): AuthUser!
 		createMessage(input: MessageInput!): Message!
-		updateMessage(messageID:String!):Message!
-		updateSettings(input:SettingsInput):Settings!
+		updateMessage(messageID: String!): Message!
+		updateSettings(input: SettingsInput): Settings!
 	}
 
 	input signUpInput {
@@ -87,13 +89,13 @@ const typeDefs = gql`
 	}
 
 	type Subscription {
-		newMessage(userID:String!):Message
+		newMessage(userID: String!): Message
 		newSignUp: AuthUser!
-		readUpdate:ID!
+		readUpdate(userID: ID!): MessageInfo!
 	}
-	type FriendMessages{
-		friendID:String!
-		messages:[Message]
+	type FriendMessages {
+		friendID: String!
+		messages: [Message]
 	}
 `;
 

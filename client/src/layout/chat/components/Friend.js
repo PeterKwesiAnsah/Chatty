@@ -46,7 +46,6 @@ const Friend = ({ friend }) => {
 		}
 		return null;
 	});
-	
 
 	const useStyles = makeStyles((theme) => ({
 		root: {
@@ -58,7 +57,6 @@ const Friend = ({ friend }) => {
 			'&:hover': {
 				backgroundColor: '#585a5d85',
 			},
-		
 		},
 		avatar: {
 			width: theme.spacing(7.5),
@@ -116,7 +114,7 @@ const Friend = ({ friend }) => {
 			display: 'flex',
 			justifyContent: 'space-between',
 		},
-		chatTime: {    
+		chatTime: {
 			color: theme.palette.primary.light,
 		},
 	}));
@@ -136,7 +134,9 @@ const Friend = ({ friend }) => {
 				<>
 					{lastMessage?.messageID === `${userID}.${id}` && (
 						<SvgIcon fontSize="small">
-							<CheckIcon></CheckIcon>
+							<CheckIcon
+								style={{ fill: lastMessage?.read ? '#3f51b5' : 'currentcolor' }}
+							></CheckIcon>
 						</SvgIcon>
 					)}
 				</>

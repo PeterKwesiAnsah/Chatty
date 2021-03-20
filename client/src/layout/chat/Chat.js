@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addUnReadMessage } from '../../slices/unRead';
 import { addMessage } from '../../slices/messages';
 import find from '../../utils/find';
+import useReadUpdate from '../../hooks/useUpdateRead';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -51,6 +52,7 @@ const Chat = () => {
 	const [updateMessage] = useMutation(UPDATE_MESSAGE);
 	const dispatch = useDispatch();
 	const userID = useSelector((state) => state.user.userID);
+	useReadUpdate(userID);
 	const { data: message } = useSubscription(NEW_MESSAGE, {
 		variables: { userID },
 	});
@@ -61,7 +63,7 @@ const Chat = () => {
 		if (message) {
 			//when a new data is created
 			const { id, messageID } = message.newMessage;
-			console.log(messageID)
+			console.log(messageID);
 
 			//get receiver and senderIDs
 			const [sender] = messageID.split('.');
@@ -75,7 +77,6 @@ const Chat = () => {
 			if (pathname === `/chat/${sender}`) {
 				// // update the read to true in database
 				updateMessage({ variables: { messageInfo: { id, messageID } } });
-				
 
 				//update the Message store
 				message.newMessage.read = true;

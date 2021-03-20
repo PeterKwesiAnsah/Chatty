@@ -10,7 +10,7 @@ const messagesSlice = createSlice({
 			if (messagesObj) {
 				// if (message instanceof Array) {
 				// 	messagesObj.messages.push(...message);
-					
+
 				// }
 				//if a friend exists
 				messagesObj.messages.push(message);
@@ -30,10 +30,17 @@ const messagesSlice = createSlice({
 			messages[messages.length - 1].sent = update.sent;
 			messages[messages.length - 1].createdAt = update.createdAt;
 		},
+		updateRead: (state, action) => {
+			const { id: ID, messageID } = action.payload;
+			const [, receiver] = messageID.split('.');
+			const messagesObj = state.find(({ friendID }) => friendID === receiver);
+			const message = messagesObj.messages.find(({ id }) => id === ID);
+			message.read = true;
+		},
 	},
 });
 
-export const { addMessage, update } = messagesSlice.actions;
+export const { addMessage, update,updateRead } = messagesSlice.actions;
 
 export default messagesSlice.reducer;
 

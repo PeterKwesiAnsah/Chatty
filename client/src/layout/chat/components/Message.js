@@ -5,7 +5,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import { SvgIcon } from '@material-ui/core';
 import getTime from '../../../utils/getTime';
 const Message = ({ message, userID, receiverID }) => {
-	const { messageID, sent,createdAt} = message;
+	const { messageID, sent, createdAt } = message;
 	const useStyles = makeStyles((theme) => ({
 		root: {
 			padding: theme.spacing(0.6, 4),
@@ -60,6 +60,9 @@ const Message = ({ message, userID, receiverID }) => {
 			display: 'inline',
 			marginRight: theme.spacing(0.5),
 		},
+		check: {
+			fill: 'red',
+		},
 	}));
 	const classes = useStyles();
 
@@ -74,7 +77,9 @@ const Message = ({ message, userID, receiverID }) => {
 					<Typography className={classes.time}>{getTime(createdAt)}</Typography>
 					{messageID === `${userID}.${receiverID}` && (
 						<SvgIcon fontSize="small">
-							<CheckIcon></CheckIcon>
+							<CheckIcon
+								style={{ fill: message.read ? '#3f51b5' : 'currentcolor' }}
+							></CheckIcon>
 						</SvgIcon>
 					)}
 				</div>

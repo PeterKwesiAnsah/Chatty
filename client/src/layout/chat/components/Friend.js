@@ -36,12 +36,6 @@ const Friend = ({ friend }) => {
 	});
 
 	const userID = useSelector((state) => state.user.userID);
-	// const unReadMessages = {
-	// 	count: 2,
-	// 	message: {
-	// 		content: 'how are you',
-	// 	},
-	// };
 
 	const lastMessage = useSelector((state) => {
 		const messagesObj = state.messages.find(({ friendID }) => id === friendID);

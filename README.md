@@ -1,2 +1,2 @@
 # Chatty
-A full stack GraphQL application.
+A fullStack Realtime GraphQL messaging application.

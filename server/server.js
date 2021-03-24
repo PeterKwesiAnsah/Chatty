@@ -13,6 +13,8 @@ connect();
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
+	introspection:true,
+	playground:true,
 	context: async ({ req, connection }) => {
 		const token =
 			req?.headers.authorization || connection.context.authorization || null;
